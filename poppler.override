@@ -1,0 +1,97 @@
+/* -*- Mode: C; c-basic-offset: 4 -*- */
+// vim: ft=c
+%%
+headers
+#include <Python.h>
+#include "pygobject.h"
+#include <glib/poppler.h>
+#include <pygtk/pygtk.h>
+#include <pycairo.h>
+#include <gdk/gdkregion.h>
+
+
+extern Pycairo_CAPI_t *Pycairo_CAPI;
+
+static PyObject *
+_glist_to_pylist_objs (GList *source)
+{
+    GList *iter;
+    PyObject *dest = PyList_New (0);
+    for (iter = source; iter != NULL; iter = iter->next)
+    {
+        PyObject *item = pygobject_new ((GObject *)iter->data);
+        PyList_Append (dest, item);
+        Py_DECREF (item);
+    }
+    return dest;
+}
+
+// from pygtk-private.h
+ 
+#ifndef GDK_TYPE_REGION
+GType
+pygdk_region_get_type (void)
+{
+  static GType our_type = 0;
+ 
+  if (our_type == 0)
+    our_type = g_boxed_type_register_static ("GdkRegion",
+                                             (GBoxedCopyFunc)gdk_region_copy,
+                                             (GBoxedFreeFunc)gdk_region_destroy);
+  return our_type;
+}
+#endif
+
+#ifdef GDK_TYPE_REGION
+    #define PYGDK_TYPE_REGION  GDK_TYPE_REGION 
+#else
+    GType pygdk_region_get_type (void) G_GNUC_CONST;
+    #define PYGDK_TYPE_REGION (pygdk_region_get_type ())
+#endif /* GDK_TYPE_REGION */
+ 
+ 
+
+#define POPPLER_RECTANGLE(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), POPPLER_TYPE_RECTANGLE, PopplerRectangle))
+
+
+%%
+modulename poppler
+%%
+import gobject.GObject as PyGObject_Type
+import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
+%%
+ignore-glob
+  *_get_type
+  _*
+%%
+override poppler_document_get_attachments noargs
+static PyObject *
+_wrap_poppler_document_get_attachments(PyGObject *self) {
+    GList           *item_list;
+    PyObject        *ret;
+    item_list = poppler_document_get_attachments(self->obj);
+    ret = _glist_to_pylist_objs(item_list);
+    g_list_free(item_list);
+    return ret;
+}
+%%
+override poppler_page_find_text kwargs
+static PyObject *
+_wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs) {
+    static char     *kwlist[] = { "text", NULL };
+    const gchar     *text;
+    GList           *item_list;
+    PyObject        *ret;
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "s",
+                                     kwlist,
+                                     &text)) {
+        return NULL;
+    }
+    PyErr_Format(PyExc_KeyError,
+                        "object does not support property %s",
+                        text);
+    item_list = poppler_page_find_text(self->obj, text);
+    ret = _glist_to_pylist_objs(item_list);
+    return ret;
+}

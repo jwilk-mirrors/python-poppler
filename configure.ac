@@ -1,0 +1,40 @@
+AC_INIT([poppler-python],[0.1],[],[poppler-python])
+
+GNOME_COMMON_INIT
+GNOME_COMPILE_WARNINGS
+
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([configure.ac])
+
+AM_INIT_AUTOMAKE([1.9 foreign dist-bzip2 no-dist-gzip])
+
+AM_MAINTAINER_MODE
+
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
+
+AM_PATH_PYTHON
+AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR(could not find Python headers)])
+
+AC_PATH_PROG(PYGTK_CODEGEN, pygtk-codegen-2.0, no)
+
+PKG_CHECK_MODULES(POPPLER, poppler pygobject-2.0)
+
+
+
+PYGOBJECT_INCLUDEDIR=`$PKG_CONFIG --variable=pygtkincludedir pygobject-2.0`
+AC_SUBST(PYGOBJECT_INCLUDEDIR)
+
+PYGOBJECT_DATADIR=`$PKG_CONFIG --variable=datadir pygobject-2.0`
+AC_SUBST(PYGOBJECT_DATADIR)
+
+PYGOBJECT_FIXXREF="$PYTHON `$PKG_CONFIG --variable=fixxref pygobject-2.0`"
+AC_SUBST(PYGOBJECT_FIXXREF)
+
+PYGOBJECT_PYGDOCS="`$PKG_CONFIG --variable=pygdocs pygobject-2.0`"
+AC_SUBST(PYGOBJECT_PYGDOCS)
+
+AC_OUTPUT([
+Makefile
+])
