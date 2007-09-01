@@ -3,9 +3,10 @@
 #endif
 
 /* include this first, before NO_IMPORT_PYGOBJECT is defined */
-#include <glib/poppler.h>
+
 #include <pygobject.h>
 #include <pygtk/pygtk.h>
+#include <glib/poppler.h>
 
 #include <pycairo.h>
 Pycairo_CAPI_t *Pycairo_CAPI;

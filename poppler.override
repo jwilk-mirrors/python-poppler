@@ -69,7 +69,8 @@ static PyObject *
 _wrap_poppler_document_get_attachments(PyGObject *self) {
     GList           *item_list;
     PyObject        *ret;
-    item_list = poppler_document_get_attachments(self->obj);
+    
+    item_list = poppler_document_get_attachments(POPPLER_DOCUMENT(self->obj));
     ret = _glist_to_pylist_objs(item_list);
     g_list_free(item_list);
     return ret;
@@ -88,10 +89,8 @@ _wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs) 
                                      &text)) {
         return NULL;
     }
-    PyErr_Format(PyExc_KeyError,
-                        "object does not support property %s",
-                        text);
-    item_list = poppler_page_find_text(self->obj, text);
+
+    item_list = poppler_page_find_text(POPPLER_PAGE(self->obj), text);
     ret = _glist_to_pylist_objs(item_list);
     return ret;
 }
