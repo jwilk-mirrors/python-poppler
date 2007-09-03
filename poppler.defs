@@ -120,6 +120,18 @@
   )
 )
 
+(define-enum SelectionType
+  (in-module "Poppler")
+  (c-name "PopplerSelectionStyle")
+  (gtype-id "POPPLER_TYPE_SELECTION_STYLE")
+  (values
+    '("glyph" "POPPLER_SELECTION_GLYPH")
+    '("word" "POPPLER_SELECTION_WORD")
+    '("line" "POPPLER_SELECTION_LINE")
+  )
+)
+
+
 (define-flags ViewerPreferences
   (in-module "Poppler")
   (c-name "PopplerViewerPreferences")
@@ -660,6 +672,7 @@
   (c-name "poppler_page_get_text")
   (return-type "char*")
   (parameters
+    '("PopplerSelectionStyle" "style")
     '("PopplerRectangle*" "rect")
   )
 )
@@ -684,6 +697,7 @@
   (return-type "GdkRegion*")
   (parameters
     '("gdouble" "scale")
+    '("PopplerSelectionStyle" "style")
     '("PopplerRectangle*" "selection")
   )
 )
@@ -693,11 +707,26 @@
   (c-name "poppler_page_render_selection")
   (return-type "none")
   (parameters
+    '("cairo_t*" "cairo")
+    '("PopplerRectangle*" "selection")
+    '("PopplerRectangle*" "old_selection")
+    '("PopplerSelectionStyle" "style")
+    '("GdkColor*" "glyph_color")
+    '("GdkColor*" "background_color")
+  )
+)
+
+(define-method render_selection_to_pixbuf
+  (of-object "PopplerPage")
+  (c-name "poppler_page_render_selection_to_pixbuf")
+  (return-type "none")
+  (parameters
     '("gdouble" "scale")
     '("int" "rotation")
     '("GdkPixbuf*" "pixbuf")
     '("PopplerRectangle*" "selection")
     '("PopplerRectangle*" "old_selection")
+    '("PopplerSelectionStyle" "style")
     '("GdkColor*" "glyph_color")
     '("GdkColor*" "background_color")
   )
