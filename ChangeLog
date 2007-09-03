@@ -1,3 +1,16 @@
+2007-09-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* arg-types.py: Add Rectangle definitions.
+
+	* poppler.defs: clean up a bit.
+
+	* poppler.override: wrap poppler.Rectangle, fix a small leak
+	in poppler_page_find_text.
+
+	* popplermodule.c: add a version number.
+
+	* Makefile.am: add arg-types.py.
+
 2007-08-31  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* Add missing autotools files

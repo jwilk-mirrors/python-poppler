@@ -6,21 +6,17 @@
 
 (define-object Document
   (in-module "Poppler")
+  (parent "GObject")
   (c-name "PopplerDocument")
   (gtype-id "POPPLER_TYPE_DOCUMENT")
 )
 
 (define-object Page
   (in-module "Poppler")
+  (parent "GObject")
   (c-name "PopplerPage")
   (gtype-id "POPPLER_TYPE_PAGE")
 )
-
-;(define-object Rectangle
-;  (in-module "Poppler")
-;  (c-name "PopplerRectangle")
-;  (gtype-id "POPPLER_TYPE_RECTANGLE")
-;)
 
 ;(define-object Dest
 ;  (in-module "Poppler")
@@ -33,8 +29,6 @@
   (c-name "PopplerPSFile")
   (gtype-id "POPPLER_TYPE_PS_FILE")
 )
-; h2def
-
 
 (define-object Attachment
   (in-module "Poppler")
@@ -43,13 +37,7 @@
   (gtype-id "POPPLER_TYPE_ATTACHMENT")
 )
 
-; XXX noot needed twice
-;(define-object Attachment
-;  (in-module "Poppler")
-;  (parent "GObject")
-;  (c-name "PopplerAttachment")
-;  (gtype-id "POPPLER_TYPE_ATTACHMENT")
-;)
+
 
 ;; Enumerations and flags ...
 

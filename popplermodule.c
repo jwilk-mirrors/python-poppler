@@ -28,7 +28,13 @@ initpoppler(void)
     d = PyModule_GetDict (m);
 
     py_poppler_register_classes (d);
-
+    
+    PyModule_AddObject(m, "pypoppler_version",
+                       Py_BuildValue("iii",
+                                     PYPOPPLER_MAJOR_VERSION,
+                                     PYPOPPLER_MINOR_VERSION,
+                                     PYPOPPLER_MICRO_VERSION));
+    
     if (PyErr_Occurred ()) {
         Py_FatalError ("can't initialise module globalkeys");
     }
