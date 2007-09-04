@@ -1,5 +1,11 @@
 2007-09-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* poppler.defs: add and change according to 0.6 API.
+
+	* configure.ac: require 0.6.
+
+2007-09-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* arg-types.py: Add Rectangle definitions.
 
 	* poppler.defs: clean up a bit.

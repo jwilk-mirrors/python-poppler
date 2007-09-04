@@ -9,7 +9,7 @@ m4_define(pypoppler_version, pypoppler_major_version.pypoppler_minor_version.pyp
 dnl versions of packages we require ...
 m4_define(pygobject_required_version, 2.10.1)
 m4_define(pygtk_required_version, 2.10.0)
-m4_define(poppler_glib_required_version, 0.5.4)
+m4_define(poppler_glib_required_version, 0.6)
 m4_define(atk_required_version, 1.6.0)
 m4_define(pycairo_required_version,    1.2.0)
 

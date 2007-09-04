@@ -1,8 +1,5 @@
 ;; -*- scheme -*-
 ; object definitions ...
-;vim: ft=scheme
-
-; Additional
 
 (define-object Document
   (in-module "Poppler")
@@ -26,6 +23,7 @@
 
 (define-object PSFile
   (in-module "Poppler")
+  (parent "GObject")
   (c-name "PopplerPSFile")
   (gtype-id "POPPLER_TYPE_PS_FILE")
 )
@@ -37,7 +35,19 @@
   (gtype-id "POPPLER_TYPE_ATTACHMENT")
 )
 
+(define-object FormField
+  (in-module "Poppler")
+  (parent "GObject")
+  (c-name "PopplerFormField")
+  (gtype-id "POPPLER_TYPE_FORM_FIELD")
+)
 
+(define-object FontInfo
+  (in-module "Poppler")
+  (parent "GObject")
+  (c-name "PopplerFontInfo")
+  (gtype-id "POPPLER_TYPE_FONT_INFO")
+)
 
 ;; Enumerations and flags ...
 
@@ -112,25 +122,17 @@
     '("unknown" "POPPLER_FONT_TYPE_UNKNOWN")
     '("type1" "POPPLER_FONT_TYPE_TYPE1")
     '("type1c" "POPPLER_FONT_TYPE_TYPE1C")
+    '("type1cot" "POPPLER_FONT_TYPE_TYPE1COT")
     '("type3" "POPPLER_FONT_TYPE_TYPE3")
     '("truetype" "POPPLER_FONT_TYPE_TRUETYPE")
+    '("truetypeot" "POPPLER_FONT_TYPE_TRUETYPEOT")
     '("cid-type0" "POPPLER_FONT_TYPE_CID_TYPE0")
     '("cid-type0c" "POPPLER_FONT_TYPE_CID_TYPE0C")
+    '("cid-type0cot" "POPPLER_FONT_TYPE_CID_TYPE0COT")
     '("cid-type2" "POPPLER_FONT_TYPE_CID_TYPE2")
+    '("cid-type2ot" "POPPLER_FONT_TYPE_CID_TYPE2OT")
   )
 )
-
-(define-enum SelectionType
-  (in-module "Poppler")
-  (c-name "PopplerSelectionStyle")
-  (gtype-id "POPPLER_TYPE_SELECTION_STYLE")
-  (values
-    '("glyph" "POPPLER_SELECTION_GLYPH")
-    '("word" "POPPLER_SELECTION_WORD")
-    '("line" "POPPLER_SELECTION_LINE")
-  )
-)
-
 
 (define-flags ViewerPreferences
   (in-module "Poppler")
@@ -161,6 +163,51 @@
   )
 )
 
+(define-enum FormFieldType
+  (in-module "Poppler")
+  (c-name "PopplerFormFieldType")
+  (gtype-id "POPPLER_TYPE_FORM_FIELD_TYPE")
+  (values
+    '("unknown" "POPPLER_FORM_FIELD_UNKNOWN")
+    '("button" "POPPLER_FORM_FIELD_BUTTON")
+    '("text" "POPPLER_FORM_FIELD_TEXT")
+    '("choice" "POPPLER_FORM_FIELD_CHOICE")
+    '("signature" "POPPLER_FORM_FIELD_SIGNATURE")
+  )
+)
+
+(define-enum FormButtonType
+  (in-module "Poppler")
+  (c-name "PopplerFormButtonType")
+  (gtype-id "POPPLER_TYPE_FORM_BUTTON_TYPE")
+  (values
+    '("push" "POPPLER_FORM_BUTTON_PUSH")
+    '("check" "POPPLER_FORM_BUTTON_CHECK")
+    '("radio" "POPPLER_FORM_BUTTON_RADIO")
+  )
+)
+
+(define-enum FormTextType
+  (in-module "Poppler")
+  (c-name "PopplerFormTextType")
+  (gtype-id "POPPLER_TYPE_FORM_TEXT_TYPE")
+  (values
+    '("normal" "POPPLER_FORM_TEXT_NORMAL")
+    '("multiline" "POPPLER_FORM_TEXT_MULTILINE")
+    '("file-select" "POPPLER_FORM_TEXT_FILE_SELECT")
+  )
+)
+
+(define-enum FormChoiceType
+  (in-module "Poppler")
+  (c-name "PopplerFormChoiceType")
+  (gtype-id "POPPLER_TYPE_FORM_CHOICE_TYPE")
+  (values
+    '("combo" "POPPLER_FORM_CHOICE_COMBO")
+    '("list" "POPPLER_FORM_CHOICE_LIST")
+  )
+)
+
 (define-enum Error
   (in-module "Poppler")
   (c-name "PopplerError")
@@ -180,6 +227,57 @@
     '("landscape" "POPPLER_ORIENTATION_LANDSCAPE")
     '("upsidedown" "POPPLER_ORIENTATION_UPSIDEDOWN")
     '("seascape" "POPPLER_ORIENTATION_SEASCAPE")
+  )
+)
+
+(define-enum PageTransitionType
+  (in-module "Poppler")
+  (c-name "PopplerPageTransitionType")
+  (gtype-id "POPPLER_TYPE_PAGE_TRANSITION_TYPE")
+  (values
+    '("replace" "POPPLER_PAGE_TRANSITION_REPLACE")
+    '("split" "POPPLER_PAGE_TRANSITION_SPLIT")
+    '("blinds" "POPPLER_PAGE_TRANSITION_BLINDS")
+    '("box" "POPPLER_PAGE_TRANSITION_BOX")
+    '("wipe" "POPPLER_PAGE_TRANSITION_WIPE")
+    '("dissolve" "POPPLER_PAGE_TRANSITION_DISSOLVE")
+    '("glitter" "POPPLER_PAGE_TRANSITION_GLITTER")
+    '("fly" "POPPLER_PAGE_TRANSITION_FLY")
+    '("push" "POPPLER_PAGE_TRANSITION_PUSH")
+    '("cover" "POPPLER_PAGE_TRANSITION_COVER")
+    '("uncover" "POPPLER_PAGE_TRANSITION_UNCOVER")
+    '("fade" "POPPLER_PAGE_TRANSITION_FADE")
+  )
+)
+
+(define-enum PageTransitionAlignment
+  (in-module "Poppler")
+  (c-name "PopplerPageTransitionAlignment")
+  (gtype-id "POPPLER_TYPE_PAGE_TRANSITION_ALIGNMENT")
+  (values
+    '("horizontal" "POPPLER_PAGE_TRANSITION_HORIZONTAL")
+    '("vertical" "POPPLER_PAGE_TRANSITION_VERTICAL")
+  )
+)
+
+(define-enum PageTransitionDirection
+  (in-module "Poppler")
+  (c-name "PopplerPageTransitionDirection")
+  (gtype-id "POPPLER_TYPE_PAGE_TRANSITION_DIRECTION")
+  (values
+    '("inward" "POPPLER_PAGE_TRANSITION_INWARD")
+    '("outward" "POPPLER_PAGE_TRANSITION_OUTWARD")
+  )
+)
+
+(define-enum SelectionStyle
+  (in-module "Poppler")
+  (c-name "PopplerSelectionStyle")
+  (gtype-id "POPPLER_TYPE_SELECTION_STYLE")
+  (values
+    '("glyph" "POPPLER_SELECTION_GLYPH")
+    '("word" "POPPLER_SELECTION_WORD")
+    '("line" "POPPLER_SELECTION_LINE")
   )
 )
 
@@ -240,28 +338,26 @@
   (return-type "GType")
 )
 
-;(define-method save
-;  (of-object "PopplerAttachment")
-;  (c-name "poppler_attachment_save")
-;  (return-type "gboolean")
-;  (parameters
-;    '("const-char*" "filename")
-;    '("GError**" "error")
-;  )
-;)
+(define-method save
+  (of-object "PopplerAttachment")
+  (c-name "poppler_attachment_save")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "filename")
+    '("GError**" "error")
+  )
+)
 
-
-; XXX
-;(define-method save_to_callback
-;  (of-object "PopplerAttachment")
-;  (c-name "poppler_attachment_save_to_callback")
-;  (return-type "gboolean")
-;  (parameters
-;    '("PopplerAttachmentSaveFunc" "save_func")
-;    '("gpointer" "user_data")
-;    '("GError**" "error")
-;  )
-;)
+(define-method save_to_callback
+  (of-object "PopplerAttachment")
+  (c-name "poppler_attachment_save_to_callback")
+  (return-type "gboolean")
+  (parameters
+    '("PopplerAttachmentSaveFunc" "save_func")
+    '("gpointer" "user_data")
+    '("GError**" "error")
+  )
+)
 
 
 
@@ -277,6 +373,17 @@
   (return-type "PopplerDocument*")
   (parameters
     '("const-char*" "uri")
+    '("const-char*" "password")
+    '("GError**" "error")
+  )
+)
+
+(define-function poppler_document_new_from_data
+  (c-name "poppler_document_new_from_data")
+  (return-type "PopplerDocument*")
+  (parameters
+    '("char*" "data")
+    '("int" "length")
     '("const-char*" "password")
     '("GError**" "error")
   )
@@ -337,6 +444,15 @@
   )
 )
 
+(define-method get_form_field
+  (of-object "PopplerDocument")
+  (c-name "poppler_document_get_form_field")
+  (return-type "PopplerFormField*")
+  (parameters
+    '("gint" "id")
+  )
+)
+
 (define-function poppler_index_iter_get_type
   (c-name "poppler_index_iter_get_type")
   (return-type "GType")
@@ -385,6 +501,11 @@
   (of-object "PopplerIndexIter")
   (c-name "poppler_index_iter_next")
   (return-type "gboolean")
+)
+
+(define-function poppler_font_info_get_type
+  (c-name "poppler_font_info_get_type")
+  (return-type "GType")
 )
 
 (define-function poppler_font_info_new
@@ -438,6 +559,12 @@
 (define-method get_full_name
   (of-object "PopplerFontsIter")
   (c-name "poppler_fonts_iter_get_full_name")
+  (return-type "const-char*")
+)
+
+(define-method get_file_name
+  (of-object "PopplerFontsIter")
+  (c-name "poppler_fonts_iter_get_file_name")
   (return-type "const-char*")
 )
 
@@ -546,6 +673,26 @@
   (return-type "GType")
 )
 
+(define-function poppler_form_field_type_get_type
+  (c-name "poppler_form_field_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_form_button_type_get_type
+  (c-name "poppler_form_button_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_form_text_type_get_type
+  (c-name "poppler_form_text_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_form_choice_type_get_type
+  (c-name "poppler_form_choice_type_get_type")
+  (return-type "GType")
+)
+
 (define-function poppler_error_get_type
   (c-name "poppler_error_get_type")
   (return-type "GType")
@@ -553,6 +700,26 @@
 
 (define-function poppler_orientation_get_type
   (c-name "poppler_orientation_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_page_transition_type_get_type
+  (c-name "poppler_page_transition_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_page_transition_alignment_get_type
+  (c-name "poppler_page_transition_alignment_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_page_transition_direction_get_type
+  (c-name "poppler_page_transition_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_selection_style_get_type
+  (c-name "poppler_selection_style_get_type")
   (return-type "GType")
 )
 
@@ -564,6 +731,204 @@
 
 
 ;; From poppler-features.h
+
+
+
+;; From poppler-form-field.h
+
+(define-function poppler_form_field_get_type
+  (c-name "poppler_form_field_get_type")
+  (return-type "GType")
+)
+
+(define-method get_field_type
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_get_field_type")
+  (return-type "PopplerFormFieldType")
+)
+
+(define-method get_id
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_get_id")
+  (return-type "gint")
+)
+
+(define-method get_font_size
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_get_font_size")
+  (return-type "gdouble")
+)
+
+(define-method is_read_only
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_is_read_only")
+  (return-type "gboolean")
+)
+
+(define-method button_get_button_type
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_button_get_button_type")
+  (return-type "PopplerFormButtonType")
+)
+
+(define-method button_get_state
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_button_get_state")
+  (return-type "gboolean")
+)
+
+(define-method button_set_state
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_button_set_state")
+  (return-type "none")
+  (parameters
+    '("gboolean" "state")
+  )
+)
+
+(define-method text_get_text_type
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_get_text_type")
+  (return-type "PopplerFormTextType")
+)
+
+(define-method text_get_text
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_get_text")
+  (return-type "gchar*")
+)
+
+(define-method text_set_text
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method text_get_max_len
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_get_max_len")
+  (return-type "gint")
+)
+
+(define-method text_do_spell_check
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_do_spell_check")
+  (return-type "gboolean")
+)
+
+(define-method text_do_scroll
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_do_scroll")
+  (return-type "gboolean")
+)
+
+(define-method text_is_rich_text
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_is_rich_text")
+  (return-type "gboolean")
+)
+
+(define-method text_is_password
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_text_is_password")
+  (return-type "gboolean")
+)
+
+(define-method choice_get_choice_type
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_get_choice_type")
+  (return-type "PopplerFormChoiceType")
+)
+
+(define-method choice_is_editable
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_is_editable")
+  (return-type "gboolean")
+)
+
+(define-method choice_can_select_multiple
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_can_select_multiple")
+  (return-type "gboolean")
+)
+
+(define-method choice_do_spell_check
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_do_spell_check")
+  (return-type "gboolean")
+)
+
+(define-method choice_commit_on_change
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_commit_on_change")
+  (return-type "gboolean")
+)
+
+(define-method choice_get_n_items
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_get_n_items")
+  (return-type "gint")
+)
+
+(define-method choice_get_item
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_get_item")
+  (return-type "gchar*")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method choice_is_item_selected
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_is_item_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method choice_select_item
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_select_item")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method choice_unselect_all
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_unselect_all")
+  (return-type "none")
+)
+
+(define-method choice_toggle_item
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_toggle_item")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method choice_set_text
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method choice_get_text
+  (of-object "PopplerFormField")
+  (c-name "poppler_form_field_choice_get_text")
+  (return-type "gchar*")
+)
 
 
 
@@ -633,6 +998,18 @@
   (return-type "int")
 )
 
+(define-method get_duration
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_duration")
+  (return-type "double")
+)
+
+(define-method get_transition
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_transition")
+  (return-type "PopplerPageTransition*")
+)
+
 (define-method get_thumbnail
   (of-object "PopplerPage")
   (c-name "poppler_page_get_thumbnail")
@@ -691,6 +1068,34 @@
   )
 )
 
+(define-method get_image_mapping
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_image_mapping")
+  (return-type "GList*")
+)
+
+(define-function poppler_page_free_image_mapping
+  (c-name "poppler_page_free_image_mapping")
+  (return-type "none")
+  (parameters
+    '("GList*" "list")
+  )
+)
+
+(define-method get_form_field_mapping
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_form_field_mapping")
+  (return-type "GList*")
+)
+
+(define-function poppler_page_free_form_field_mapping
+  (c-name "poppler_page_free_form_field_mapping")
+  (return-type "none")
+  (parameters
+    '("GList*" "list")
+  )
+)
+
 (define-method get_selection_region
   (of-object "PopplerPage")
   (c-name "poppler_page_get_selection_region")
@@ -729,6 +1134,15 @@
     '("PopplerSelectionStyle" "style")
     '("GdkColor*" "glyph_color")
     '("GdkColor*" "background_color")
+  )
+)
+
+(define-method get_crop_box
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_crop_box")
+  (return-type "none")
+  (parameters
+    '("PopplerRectangle*" "rect")
   )
 )
 
@@ -775,6 +1189,75 @@
 (define-method free
   (of-object "PopplerLinkMapping")
   (c-name "poppler_link_mapping_free")
+  (return-type "none")
+)
+
+(define-function poppler_page_transition_get_type
+  (c-name "poppler_page_transition_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_page_transition_new
+  (c-name "poppler_page_transition_new")
+  (is-constructor-of "PopplerPageTransition")
+  (return-type "PopplerPageTransition*")
+)
+
+(define-method copy
+  (of-object "PopplerPageTransition")
+  (c-name "poppler_page_transition_copy")
+  (return-type "PopplerPageTransition*")
+)
+
+(define-method free
+  (of-object "PopplerPageTransition")
+  (c-name "poppler_page_transition_free")
+  (return-type "none")
+)
+
+(define-function poppler_image_mapping_get_type
+  (c-name "poppler_image_mapping_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_image_mapping_new
+  (c-name "poppler_image_mapping_new")
+  (is-constructor-of "PopplerImageMapping")
+  (return-type "PopplerImageMapping*")
+)
+
+(define-method copy
+  (of-object "PopplerImageMapping")
+  (c-name "poppler_image_mapping_copy")
+  (return-type "PopplerImageMapping*")
+)
+
+(define-method free
+  (of-object "PopplerImageMapping")
+  (c-name "poppler_image_mapping_free")
+  (return-type "none")
+)
+
+(define-function poppler_form_field_mapping_get_type
+  (c-name "poppler_form_field_mapping_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_form_field_mapping_new
+  (c-name "poppler_form_field_mapping_new")
+  (is-constructor-of "PopplerFormFieldMapping")
+  (return-type "PopplerFormFieldMapping*")
+)
+
+(define-method copy
+  (of-object "PopplerFormFieldMapping")
+  (c-name "poppler_form_field_mapping_copy")
+  (return-type "PopplerFormFieldMapping*")
+)
+
+(define-method free
+  (of-object "PopplerFormFieldMapping")
+  (c-name "poppler_form_field_mapping_free")
   (return-type "none")
 )
 
