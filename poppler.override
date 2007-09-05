@@ -286,3 +286,15 @@ _wrap_poppler_document_find_dest(PyGObject *self,
         return Py_None;
     }
 }
+%%
+override poppler_page_get_size noargs
+static PyObject *
+_wrap_poppler_page_get_size(PyGObject *self)
+{
+    double      width;
+    double      height;
+
+    poppler_page_get_size(POPPLER_PAGE(self->obj), &width, &height);
+    
+    return Py_BuildValue("dd", width, height);
+}

@@ -11,9 +11,9 @@
 #include <pycairo.h>
 Pycairo_CAPI_t *Pycairo_CAPI;
 
-void py_poppler_register_classes (PyObject *d);
+void pypoppler_register_classes (PyObject *d);
 
-extern PyMethodDef py_poppler_functions[];
+extern PyMethodDef pypoppler_functions[];
 
 DL_EXPORT(void)
 initpoppler(void)
@@ -24,10 +24,10 @@ initpoppler(void)
 
     init_pygobject ();
 
-    m = Py_InitModule ("poppler", py_poppler_functions);
+    m = Py_InitModule ("poppler", pypoppler_functions);
     d = PyModule_GetDict (m);
 
-    py_poppler_register_classes (d);
+    pypoppler_register_classes (d);
     
     PyModule_AddObject(m, "pypoppler_version",
                        Py_BuildValue("iii",

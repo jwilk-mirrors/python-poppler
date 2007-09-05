@@ -1,5 +1,11 @@
 2007-09-05  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* popplermodule.c: fix build.
+
+	* poppler.override: implement poppler.Page.get_size
+
+2007-09-05  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.defs:
 	* poppler.override: implement poppler.Dest
 
