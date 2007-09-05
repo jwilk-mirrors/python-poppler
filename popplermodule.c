@@ -12,6 +12,7 @@
 Pycairo_CAPI_t *Pycairo_CAPI;
 
 void pypoppler_register_classes (PyObject *d);
+void pypoppler_add_constants (PyObject *module, const gchar *strip_prefix);
 
 extern PyMethodDef pypoppler_functions[];
 
@@ -29,6 +30,8 @@ initpoppler(void)
 
     pypoppler_register_classes (d);
     
+    pypoppler_add_constants(m, "POPPLER_");
+
     PyModule_AddObject(m, "pypoppler_version",
                        Py_BuildValue("iii",
                                      PYPOPPLER_MAJOR_VERSION,
