@@ -48,7 +48,7 @@ pygdk_region_get_type (void)
     GType pygdk_region_get_type (void) G_GNUC_CONST;
     #define PYGDK_TYPE_REGION (pygdk_region_get_type ())
 #endif /* GDK_TYPE_REGION */
- 
+
 typedef struct {
     PyObject_HEAD
     PopplerRectangle *rect;
@@ -116,6 +116,96 @@ PyTypeObject PyPopplerRectangle_Type = {
     (inquiry)0,                         /* tp_is_gc */
     (PyObject *)0,                      /* tp_bases */
 };
+
+PyObject*
+pypoppler_rectangle_new(PopplerRectangle *rect)
+{
+    PyPopplerRectangle *self;
+
+    self = (PyPopplerRectangle *)PyObject_NEW(PyPopplerRectangle,
+                                             &PyPopplerRectangle_Type);
+    if (G_UNLIKELY(self == NULL))
+	return NULL;
+    if (rect)
+        self->rect = rect;
+    return (PyObject *)self;
+}
+
+typedef struct {
+    PyObject_HEAD
+    PopplerDest *dest;
+} PyPopplerDest;
+
+static void
+pypoppler_dest_dealloc(PyPopplerDest *self)
+{
+    PyObject_DEL(self);
+}
+
+static PyMethodDef _PyPopplerDest_methods[] = {
+    { NULL,  0, 0 }
+};
+
+PyTypeObject PyPopplerDest_Type = {
+    PyObject_HEAD_INIT(NULL)
+    0,                                  /* ob_size */
+    "poppler.Dest",                     /* tp_name */
+    sizeof(PyPopplerDest),		        /* tp_basicsize */
+    0,                                  /* tp_itemsize */
+    /* methods */
+    (destructor)pypoppler_dest_dealloc, /* tp_dealloc */
+    (printfunc)0,                       /* tp_print */
+    (getattrfunc)0,                     /* tp_getattr */
+    (setattrfunc)0,                     /* tp_setattr */
+    (cmpfunc)0,                         /* tp_compare */
+    (reprfunc)0,                        /* tp_repr */
+    0,                                  /* tp_as_number */
+    0,                                  /* tp_as_sequence */
+    0,                                  /* tp_as_mapping */
+    (hashfunc)0,                        /* tp_hash */
+    (ternaryfunc)0,                     /* tp_call */
+    (reprfunc)0,                        /* tp_str */
+    (getattrofunc)0,                    /* tp_getattro */
+    (setattrofunc)0,                    /* tp_setattro */
+    0,                                  /* tp_as_buffer */
+    Py_TPFLAGS_DEFAULT,   		        /* tp_flags */
+    "",                                 /* Documentation string */
+    (traverseproc)0,                    /* tp_traverse */
+    (inquiry)0,                         /* tp_clear */
+    (richcmpfunc)0,                     /* tp_richcompare */
+    0,                                  /* tp_weaklistoffset */
+    (getiterfunc)0,                     /* tp_iter */
+    (iternextfunc)0,                    /* tp_iternext */
+    _PyPopplerDest_methods,             /* tp_methods */
+    0,                                  /* tp_members */
+    0,                                  /* tp_getset */
+    (PyTypeObject *)0,                  /* tp_base */
+    (PyObject *)0,                      /* tp_dict */
+    0,                                  /* tp_descr_get */
+    0,                                  /* tp_descr_set */
+    0,                                  /* tp_dictoffset */
+    (initproc)0,                        /* tp_init */
+    0,                			        /* tp_alloc */
+    0,                                  /* tp_new */
+    0,                                  /* tp_free */
+    (inquiry)0,                         /* tp_is_gc */
+    (PyObject *)0,                      /* tp_bases */
+};
+
+PyObject*
+pypoppler_dest_new(PopplerDest *dest)
+{
+    PyPopplerDest *self;
+
+    self = (PyPopplerDest *)PyObject_NEW(PyPopplerDest,
+                                             &PyPopplerDest_Type);
+    if (G_UNLIKELY(self == NULL))
+	return NULL;
+    if (dest)
+        self->dest = dest;
+    return (PyObject *)self;
+}
+
 %%
 init
     if (PyType_Ready(&PyPopplerRectangle_Type) < 0) {
@@ -124,7 +214,12 @@ init
     if (PyDict_SetItemString(d, "Rectangle", (PyObject *)&PyPopplerRectangle_Type) < 0) {
         g_return_if_reached();
     }
-
+    if (PyType_Ready(&PyPopplerDest_Type) < 0) {
+        g_return_if_reached();
+    }
+    if (PyDict_SetItemString(d, "Dest", (PyObject *)&PyPopplerDest_Type) < 0) {
+        g_return_if_reached();
+    }
 %%
 modulename poppler
 %%
@@ -165,4 +260,29 @@ _wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs) 
     ret = _glist_to_pylist_objs(item_list);
     g_list_free(item_list);
     return ret;
+}
+%%
+override poppler_document_find_dest kwargs
+static PyObject *
+_wrap_poppler_document_find_dest(PyGObject *self,
+                                 PyObject *args,
+                                 PyObject *kwargs)
+{
+    static char *kwlist[] = { "link_name", NULL };
+    const gchar *link_name;
+    PopplerDest *ret;
+    PyObject    *py_ret;
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s", kwlist, &link_name))
+        return NULL;
+
+    ret = poppler_document_find_dest(POPPLER_DOCUMENT(self->obj), link_name);
+
+    if (ret) {
+        py_ret = pypoppler_dest_new(ret);
+        return py_ret;
+    } else {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
 }

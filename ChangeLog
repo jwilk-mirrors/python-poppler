@@ -1,3 +1,8 @@
+2007-09-05  Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs:
+	* poppler.override: implement poppler.Dest
+
 2007-09-03  Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.defs: add and change according to 0.6 API.

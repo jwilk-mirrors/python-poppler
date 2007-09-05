@@ -15,12 +15,6 @@
   (gtype-id "POPPLER_TYPE_PAGE")
 )
 
-;(define-object Dest
-;  (in-module "Poppler")
-;  (c-name "PopplerDest")
-;  (gtype-id "POPPLER_TYPE_DEST")
-;)
-
 (define-object PSFile
   (in-module "Poppler")
   (parent "GObject")
