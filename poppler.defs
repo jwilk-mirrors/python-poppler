@@ -1,6 +1,14 @@
 ;; -*- scheme -*-
 ; object definitions ...
 
+(define-boxed IndexIter
+  (in-module "Poppler")
+  (c-name "PopplerIndexIter")
+  (gtype-id "POPPLER_TYPE_INDEX_ITER")
+  (copy-func "poppler_index_iter_copy")
+  (release-func "poppler_index_iter_free")
+)
+
 (define-object Document
   (in-module "Poppler")
   (parent "GObject")

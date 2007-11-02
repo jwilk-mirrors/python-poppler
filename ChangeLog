@@ -1,3 +1,13 @@
+2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs: implement poppler.IndexIter
+
+2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* Makefile.am: Fix module naming, fixes #140731 patch by lutz
+
+	* poppler.override: implement poppler.PageTransition
+
 2007-09-05  Ali Afshar <aafshar@gmail.com>
 
 	* popplermodule.c: Add constants
