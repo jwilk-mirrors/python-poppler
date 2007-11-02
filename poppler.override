@@ -9,7 +9,6 @@ headers
 #include <pycairo.h>
 #include <gdk/gdkregion.h>
 
-extern PyTypeObject PyPopplerRectangle_Type;
 extern Pycairo_CAPI_t *Pycairo_CAPI;
 
 static PyObject *
@@ -48,88 +47,6 @@ pygdk_region_get_type (void)
     GType pygdk_region_get_type (void) G_GNUC_CONST;
     #define PYGDK_TYPE_REGION (pygdk_region_get_type ())
 #endif /* GDK_TYPE_REGION */
-
-typedef struct {
-    PyObject_HEAD
-    PopplerRectangle *rect;
-} PyPopplerRectangle;
-
-static int
-pypoppler_rectangle_init(PyPopplerRectangle *self)
-{
-    self->rect = poppler_rectangle_new ();
-    return 0;
-}
-
-static void
-pypoppler_rectangle_dealloc(PyPopplerRectangle *self)
-{
-    PyObject_DEL(self);
-}
-
-static PyMethodDef _PyPopplerRectangle_methods[] = {
-    { NULL,  0, 0 }
-};
-
-PyTypeObject PyPopplerRectangle_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,                                  /* ob_size */
-    "poppler.Rectangle",                /* tp_name */
-    sizeof(PyPopplerRectangle),		    /* tp_basicsize */
-    0,                                  /* tp_itemsize */
-    /* methods */
-    (destructor)pypoppler_rectangle_dealloc, /* tp_dealloc */
-    (printfunc)0,                       /* tp_print */
-    (getattrfunc)0,                     /* tp_getattr */
-    (setattrfunc)0,                     /* tp_setattr */
-    (cmpfunc)0,                         /* tp_compare */
-    (reprfunc)0,                        /* tp_repr */
-    0,                                  /* tp_as_number */
-    0,                                  /* tp_as_sequence */
-    0,                                  /* tp_as_mapping */
-    (hashfunc)0,                        /* tp_hash */
-    (ternaryfunc)0,                     /* tp_call */
-    (reprfunc)0,                        /* tp_str */
-    (getattrofunc)0,                    /* tp_getattro */
-    (setattrofunc)0,                    /* tp_setattro */
-    0,                                  /* tp_as_buffer */
-    Py_TPFLAGS_DEFAULT,   		        /* tp_flags */
-    "",                                 /* Documentation string */
-    (traverseproc)0,                    /* tp_traverse */
-    (inquiry)0,                         /* tp_clear */
-    (richcmpfunc)0,                     /* tp_richcompare */
-    0,                                  /* tp_weaklistoffset */
-    (getiterfunc)0,                     /* tp_iter */
-    (iternextfunc)0,                    /* tp_iternext */
-    _PyPopplerRectangle_methods,        /* tp_methods */
-    0,                                  /* tp_members */
-    0,                                  /* tp_getset */
-    (PyTypeObject *)0,                  /* tp_base */
-    (PyObject *)0,                      /* tp_dict */
-    0,                                  /* tp_descr_get */
-    0,                                  /* tp_descr_set */
-    0,                                  /* tp_dictoffset */
-    (initproc)pypoppler_rectangle_init, /* tp_init */
-    0,                			        /* tp_alloc */
-    0,                                  /* tp_new */
-    0,                                  /* tp_free */
-    (inquiry)0,                         /* tp_is_gc */
-    (PyObject *)0,                      /* tp_bases */
-};
-
-PyObject*
-pypoppler_rectangle_new(PopplerRectangle *rect)
-{
-    PyPopplerRectangle *self;
-
-    self = (PyPopplerRectangle *)PyObject_NEW(PyPopplerRectangle,
-                                             &PyPopplerRectangle_Type);
-    if (G_UNLIKELY(self == NULL))
-	return NULL;
-    if (rect)
-        self->rect = rect;
-    return (PyObject *)self;
-}
 
 typedef struct {
     PyObject_HEAD
@@ -283,12 +200,6 @@ pypoppler_page_transition_new(PopplerPageTransition *trans)
 
 %%
 init
-    if (PyType_Ready(&PyPopplerRectangle_Type) < 0) {
-        g_return_if_reached();
-    }
-    if (PyDict_SetItemString(d, "Rectangle", (PyObject *)&PyPopplerRectangle_Type) < 0) {
-        g_return_if_reached();
-    }
     if (PyType_Ready(&PyPopplerDest_Type) < 0) {
         g_return_if_reached();
     }

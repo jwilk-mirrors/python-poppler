@@ -1,5 +1,13 @@
 2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* arg-types.py: removed
+	
+	* poppler.override:
+	* Makefile.am:
+	* poppler.defs: implement poppler.Rectangle as boxed type now.
+
+2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.defs: implement poppler.IndexIter
 
 2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>

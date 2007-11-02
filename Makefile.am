@@ -19,7 +19,6 @@ CLEANFILES = poppler.c
 	(cd $(srcdir)\
 	&& $(PYTHON) $(CODEGEN) \
 		--override $*.override \
-		--load-types arg-types.py \
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/gdk-types.defs \
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/pango-types.defs \
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/gtk-types.defs \

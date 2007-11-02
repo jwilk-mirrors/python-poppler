@@ -1,6 +1,22 @@
 ;; -*- scheme -*-
 ; object definitions ...
 
+(define-boxed Rectangle
+  (in-module "Poppler")
+  (c-name "PopplerRectangle")
+  (gtype-id "POPPLER_TYPE_RECTANGLE")
+  (copy-func "poppler_rectangle_copy")
+  (release-func "poppler_rectangle_free")
+)
+
+(define-boxed FontsIter
+  (in-module "Poppler")
+  (c-name "PopplerFontsIter")
+  (gtype-id "POPPLER_TYPE_FONTS_ITER")
+  (copy-func "poppler_fonts_iter_copy")
+  (release-func "poppler_fonts_iter_free")
+)
+
 (define-boxed IndexIter
   (in-module "Poppler")
   (c-name "PopplerIndexIter")
