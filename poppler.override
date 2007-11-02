@@ -123,93 +123,12 @@ pypoppler_dest_new(PopplerDest *dest)
     return (PyObject *)self;
 }
 
-typedef struct {
-    PyObject_HEAD
-    PopplerPageTransition *trans;
-} PyPopplerPageTransition;
-
-static void
-pypoppler_page_transition_dealloc(PyPopplerPageTransition *self)
-{
-    PyObject_DEL(self);
-}
-
-static PyMethodDef _PyPopplerPageTransition_methods[] = {
-    { NULL,  0, 0 }
-};
-
-PyTypeObject PyPopplerPageTransition_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,                                  /* ob_size */
-    "poppler.PageTransition",           /* tp_name */
-    sizeof(PyPopplerPageTransition),    /* tp_basicsize */
-    0,                                  /* tp_itemsize */
-    /* methods */
-    (destructor)pypoppler_page_transition_dealloc, /* tp_dealloc */
-    (printfunc)0,                       /* tp_print */
-    (getattrfunc)0,                     /* tp_getattr */
-    (setattrfunc)0,                     /* tp_setattr */
-    (cmpfunc)0,                         /* tp_compare */
-    (reprfunc)0,                        /* tp_repr */
-    0,                                  /* tp_as_number */
-    0,                                  /* tp_as_sequence */
-    0,                                  /* tp_as_mapping */
-    (hashfunc)0,                        /* tp_hash */
-    (ternaryfunc)0,                     /* tp_call */
-    (reprfunc)0,                        /* tp_str */
-    (getattrofunc)0,                    /* tp_getattro */
-    (setattrofunc)0,                    /* tp_setattro */
-    0,                                  /* tp_as_buffer */
-    Py_TPFLAGS_DEFAULT,   		        /* tp_flags */
-    "",                                 /* Documentation string */
-    (traverseproc)0,                    /* tp_traverse */
-    (inquiry)0,                         /* tp_clear */
-    (richcmpfunc)0,                     /* tp_richcompare */
-    0,                                  /* tp_weaklistoffset */
-    (getiterfunc)0,                     /* tp_iter */
-    (iternextfunc)0,                    /* tp_iternext */
-    _PyPopplerPageTransition_methods,       /* tp_methods */
-    0,                                  /* tp_members */
-    0,                                  /* tp_getset */
-    (PyTypeObject *)0,                  /* tp_base */
-    (PyObject *)0,                      /* tp_dict */
-    0,                                  /* tp_descr_get */
-    0,                                  /* tp_descr_set */
-    0,                                  /* tp_dictoffset */
-    (initproc)0,                        /* tp_init */
-    0,                			        /* tp_alloc */
-    0,                                  /* tp_new */
-    0,                                  /* tp_free */
-    (inquiry)0,                         /* tp_is_gc */
-    (PyObject *)0,                      /* tp_bases */
-};
-
-PyObject*
-pypoppler_page_transition_new(PopplerPageTransition *trans)
-{
-    PyPopplerPageTransition *self;
-
-    self = (PyPopplerPageTransition *)PyObject_NEW(PyPopplerPageTransition,
-                                             &PyPopplerPageTransition_Type);
-    if (G_UNLIKELY(self == NULL))
-	return NULL;
-    if (trans)
-        self->trans = trans;
-    return (PyObject *)self;
-}
-
 %%
 init
     if (PyType_Ready(&PyPopplerDest_Type) < 0) {
         g_return_if_reached();
     }
     if (PyDict_SetItemString(d, "Dest", (PyObject *)&PyPopplerDest_Type) < 0) {
-        g_return_if_reached();
-    }
-    if (PyType_Ready(&PyPopplerPageTransition_Type) < 0) {
-        g_return_if_reached();
-    }
-    if (PyDict_SetItemString(d, "Transition", (PyObject *)&PyPopplerPageTransition_Type) < 0) {
         g_return_if_reached();
     }
 %%

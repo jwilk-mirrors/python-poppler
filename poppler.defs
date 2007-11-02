@@ -1,6 +1,22 @@
 ;; -*- scheme -*-
 ; object definitions ...
 
+(define-boxed PageTransition
+  (in-module "Poppler")
+  (c-name "PopplerPageTransition")
+  (gtype-id "POPPLER_TYPE_PAGE_TRANSITION")
+  (copy-func "poppler_page_transition_copy")
+  (release-func "poppler_page_transition_free")
+)
+
+(define-boxed LinkMapping
+  (in-module "Poppler")
+  (c-name "PopplerLinkMapping")
+  (gtype-id "POPPLER_TYPE_LINK_MAPPING")
+  (copy-func "poppler_link_mapping_copy")
+  (release-func "poppler_link_mapping_free")
+)
+
 (define-boxed Rectangle
   (in-module "Poppler")
   (c-name "PopplerRectangle")
