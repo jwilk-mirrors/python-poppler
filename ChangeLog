@@ -1,5 +1,9 @@
 2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* poppler.defs: implement poppler.Action
+
+2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.override: don't override poppler_document_find_dest and
 	poppler_page_get_transition, ignore copy/free boxed methods.
 

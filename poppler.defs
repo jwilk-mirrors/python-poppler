@@ -41,6 +41,14 @@
   (release-func "poppler_rectangle_free")
 )
 
+(define-boxed Action
+  (in-module "Poppler")
+  (c-name "PopplerAction")
+  (gtype-id "POPPLER_TYPE_ACTION")
+  (copy-func "poppler_action_copy")
+  (release-func "poppler_action_free")
+)
+
 (define-boxed Dest
   (in-module "Poppler")
   (c-name "PopplerDest")
