@@ -1,6 +1,22 @@
 ;; -*- scheme -*-
 ; object definitions ...
 
+(define-boxed FormFieldMapping
+  (in-module "Poppler")
+  (c-name "PopplerFormFieldMapping")
+  (gtype-id "POPPLER_TYPE_FORM_FIELD_MAPPING")
+  (copy-func "poppler_form_field_mapping_copy")
+  (release-func "poppler_form_field_mapping_free")
+)
+
+(define-boxed ImageMapping
+  (in-module "Poppler")
+  (c-name "PopplerImageMapping")
+  (gtype-id "POPPLER_TYPE_IMAGE_MAPPING")
+  (copy-func "poppler_image_mapping_copy")
+  (release-func "poppler_image_mapping_free")
+)
+
 (define-boxed PageTransition
   (in-module "Poppler")
   (c-name "PopplerPageTransition")
