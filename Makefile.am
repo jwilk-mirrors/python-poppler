@@ -6,12 +6,12 @@ INCLUDES = $(PYTHON_INCLUDES)
 EXTRA_DIST = poppler.defs poppler.override arg-types.py
 
 # poppler module
-pyexec_LTLIBRARIES = popplermodule.la
-popplermodule_la_LDFLAGS = -module -avoid-version -export-symbols-regex initpoppler
-popplermodule_la_CFLAGS = $(PYPOPPLER_CFLAGS)
-popplermodule_la_LIBADD = $(PYPOPPLER_LIBS)
-popplermodule_la_SOURCES = popplermodule.c 
-nodist_popplermodule_la_SOURCES = poppler.c
+pyexec_LTLIBRARIES = poppler.la
+poppler_la_LDFLAGS = -module -avoid-version -export-symbols-regex initpoppler
+poppler_la_CFLAGS = $(PYPOPPLER_CFLAGS)
+poppler_la_LIBADD = $(PYPOPPLER_LIBS)
+poppler_la_SOURCES = popplermodule.c 
+nodist_poppler_la_SOURCES = poppler.c
 poppler.c: poppler.defs poppler.override
 CLEANFILES = poppler.c
 
@@ -23,6 +23,6 @@ CLEANFILES = poppler.c
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/gdk-types.defs \
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/pango-types.defs \
 	    --register @PYGTK_DATADIR@/pygtk/2.0/defs/gtk-types.defs \
-		--prefix py$* $*.defs) > gen-$*.c \
+		--prefix py_$* $*.defs) > gen-$*.c \
 	    && cp gen-$*.c $*.c \
 	    && rm -f gen-$*.c
