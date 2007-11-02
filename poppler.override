@@ -60,6 +60,8 @@ import gtk.gdk.Pixbuf as PyGdkPixbuf_Type
 ignore-glob
   *_get_type
   _*
+  *_copy
+  *_free
 %%
 override poppler_document_get_attachments noargs
 static PyObject *
@@ -93,31 +95,6 @@ _wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs) 
     return ret;
 }
 %%
-override poppler_document_find_dest kwargs
-static PyObject *
-_wrap_poppler_document_find_dest(PyGObject *self,
-                                 PyObject *args,
-                                 PyObject *kwargs)
-{
-    static char *kwlist[] = { "link_name", NULL };
-    const gchar *link_name;
-    PopplerDest *ret;
-    PyObject    *py_ret;
-
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s", kwlist, &link_name))
-        return NULL;
-
-    ret = poppler_document_find_dest(POPPLER_DOCUMENT(self->obj), link_name);
-
-    if (ret) {
-        py_ret = pypoppler_dest_new(ret);
-        return py_ret;
-    } else {
-        Py_INCREF(Py_None);
-        return Py_None;
-    }
-}
-%%
 override poppler_page_get_size noargs
 static PyObject *
 _wrap_poppler_page_get_size(PyGObject *self)
@@ -130,20 +107,3 @@ _wrap_poppler_page_get_size(PyGObject *self)
     return Py_BuildValue("dd", width, height);
 }
 %%
-override poppler_page_get_transition noargs
-static PyObject *
-_wrap_poppler_page_get_transition(PyGObject *self)
-{
-    PopplerPageTransition   *ret;
-    PyObject                *py_ret;
-    
-    ret = poppler_page_get_transition(POPPLER_PAGE(self->obj));
-    
-    if (ret) {
-        py_ret = pypoppler_page_transition_new(ret);
-        return py_ret;
-    } else {
-        Py_INCREF(Py_None);
-        return Py_None;
-    }
-}
