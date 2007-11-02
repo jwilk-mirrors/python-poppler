@@ -41,6 +41,14 @@
   (release-func "poppler_rectangle_free")
 )
 
+(define-boxed Dest
+  (in-module "Poppler")
+  (c-name "PopplerDest")
+  (gtype-id "POPPLER_TYPE_DEST")
+  (copy-func "poppler_dest_copy")
+  (release-func "poppler_dest_free")
+)
+
 (define-boxed FontsIter
   (in-module "Poppler")
   (c-name "PopplerFontsIter")

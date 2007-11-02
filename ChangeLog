@@ -1,5 +1,10 @@
 2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* poppler.override:
+	* poppler.defs: implement poppler.Dest as boxed type now.
+
+2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.defs: implement poppler.ImageMapping and
 	poppler.FormFieldMapping.
 
