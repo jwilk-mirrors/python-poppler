@@ -1,3 +1,8 @@
+2007-11-04 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs: make poppler_document_new_from_file the default
+	constructor for poppler.Document.
+
 2007-11-02 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.defs: implement poppler.Action

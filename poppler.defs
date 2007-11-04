@@ -436,10 +436,11 @@
 
 (define-function poppler_document_new_from_file
   (c-name "poppler_document_new_from_file")
+  (is-constructor-of "PopplerDocument")
   (return-type "PopplerDocument*")
   (parameters
     '("const-char*" "uri")
-    '("const-char*" "password")
+    '("const-char*" "password" (null-ok))
     '("GError**" "error")
   )
 )
