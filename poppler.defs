@@ -7,6 +7,10 @@
   (gtype-id "POPPLER_TYPE_FORM_FIELD_MAPPING")
   (copy-func "poppler_form_field_mapping_copy")
   (release-func "poppler_form_field_mapping_free")
+  (fields
+    '("PopplerRectangle" "area")
+    '("PopplerFormField*" "field")
+  )
 )
 
 (define-boxed ImageMapping
@@ -15,6 +19,10 @@
   (gtype-id "POPPLER_TYPE_IMAGE_MAPPING")
   (copy-func "poppler_image_mapping_copy")
   (release-func "poppler_image_mapping_free")
+  (fields
+    '("PopplerRectangle" "area")
+    '("GdkPixbuf*" "image")
+  )
 )
 
 (define-boxed PageTransition
@@ -23,6 +31,15 @@
   (gtype-id "POPPLER_TYPE_PAGE_TRANSITION")
   (copy-func "poppler_page_transition_copy")
   (release-func "poppler_page_transition_free")
+  (fields
+    '("PopplerPageTransitionType" "type")
+    '("PopplerPageTransitionAlignment" "alignment")
+    '("PopplerPageTransitionDirection" "direction")
+    '("gint" "duration")
+    '("gint" "angle")
+    '("gdouble" "scale")
+    '("gboolean" "rectangular")
+  )
 )
 
 (define-boxed LinkMapping
@@ -31,6 +48,10 @@
   (gtype-id "POPPLER_TYPE_LINK_MAPPING")
   (copy-func "poppler_link_mapping_copy")
   (release-func "poppler_link_mapping_free")
+  (fields
+    '("PopplerRectangle" "area")
+    '("PopplerAction*" "action")
+  )
 )
 
 (define-boxed Rectangle
@@ -39,6 +60,12 @@
   (gtype-id "POPPLER_TYPE_RECTANGLE")
   (copy-func "poppler_rectangle_copy")
   (release-func "poppler_rectangle_free")
+  (fields
+    '("gdouble" "x1")
+    '("gdouble" "y1")
+    '("gdouble" "x2")
+    '("gdouble" "y2")
+  )
 )
 
 (define-boxed Action
@@ -55,6 +82,19 @@
   (gtype-id "POPPLER_TYPE_DEST")
   (copy-func "poppler_dest_copy")
   (release-func "poppler_dest_free")
+  (fields
+    '("PopplerDestType" "type")
+    '("int" "page_num")
+    '("double" "left")
+    '("double" "bottom")
+    '("double" "right")
+    '("double" "top")
+    '("double" "zoom")
+    '("gchar*" "named_dest")
+    '("guint" "change_left")
+    '("guint" "change_top")
+    '("guint" "change_zoom")
+  )
 )
 
 (define-boxed FontsIter

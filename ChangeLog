@@ -1,5 +1,9 @@
 2007-11-04 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* poppler.defs: Implement fields for descriptors.
+
+2007-11-04 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.defs: make poppler_document_new_from_file the default
 	constructor for poppler.Document.
 
