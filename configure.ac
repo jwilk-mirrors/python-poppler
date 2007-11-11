@@ -2,7 +2,7 @@ AC_PREREQ(2.52)
 
 dnl the pypoppler version number
 m4_define(pypoppler_major_version, 0)
-m4_define(pypoppler_minor_version, 1)
+m4_define(pypoppler_minor_version, 6)
 m4_define(pypoppler_micro_version, 0)
 m4_define(pypoppler_version, pypoppler_major_version.pypoppler_minor_version.pypoppler_micro_version)
 

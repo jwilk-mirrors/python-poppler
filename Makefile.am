@@ -3,7 +3,7 @@ AUTOMAKE_OPTIONS=1.7
 
 INCLUDES = $(PYTHON_INCLUDES)
 
-EXTRA_DIST = poppler.defs poppler.override arg-types.py
+EXTRA_DIST = poppler.defs poppler.override 
 
 # poppler module
 pyexec_LTLIBRARIES = poppler.la
