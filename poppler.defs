@@ -474,9 +474,8 @@
   (return-type "GType")
 )
 
-(define-function poppler_document_new_from_file
+(define-function document_new_from_file
   (c-name "poppler_document_new_from_file")
-  (is-constructor-of "PopplerDocument")
   (return-type "PopplerDocument*")
   (parameters
     '("const-char*" "uri")
@@ -485,7 +484,7 @@
   )
 )
 
-(define-function poppler_document_new_from_data
+(define-function document_new_from_data
   (c-name "poppler_document_new_from_data")
   (return-type "PopplerDocument*")
   (parameters
@@ -1046,12 +1045,12 @@
   (return-type "GQuark")
 )
 
-(define-function poppler_get_backend
+(define-function get_backend
   (c-name "poppler_get_backend")
   (return-type "PopplerBackend")
 )
 
-(define-function poppler_get_version
+(define-function get_version
   (c-name "poppler_get_version")
   (return-type "const-char*")
 )
@@ -1167,7 +1166,7 @@
   (return-type "GList*")
 )
 
-(define-function poppler_page_free_link_mapping
+(define-function page_free_link_mapping
   (c-name "poppler_page_free_link_mapping")
   (return-type "none")
   (parameters
@@ -1181,7 +1180,7 @@
   (return-type "GList*")
 )
 
-(define-function poppler_page_free_image_mapping
+(define-function page_free_image_mapping
   (c-name "poppler_page_free_image_mapping")
   (return-type "none")
   (parameters
@@ -1195,7 +1194,7 @@
   (return-type "GList*")
 )
 
-(define-function poppler_page_free_form_field_mapping
+(define-function page_free_form_field_mapping
   (c-name "poppler_page_free_form_field_mapping")
   (return-type "none")
   (parameters
