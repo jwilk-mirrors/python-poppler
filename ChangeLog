@@ -1,3 +1,8 @@
+2007-12-09 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs: Strip poppler prefix from functions, make
+        document_new_from_file actually work.
+
 === 0.6.0 ===
 2007-11-12 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
