@@ -8,7 +8,7 @@ class Poprender(object):
         uri = "file://" + sys.argv[1]
         
         self.document = poppler.document_new_from_file (uri, None)
-        n_pages = self.document.get_n_pages()
+        self.n_pages = self.document.get_n_pages()
         self.current_page = self.document.get_page(1)
         self.scale = 1
         self.width, self.height = self.current_page.get_size()
@@ -21,7 +21,7 @@ class Poprender(object):
         win.set_title ("Poppler GLib Demo")
         win.connect("delete-event", gtk.main_quit)
         
-        adjust = gtk.Adjustment(1, 1, n_pages, 1)
+        adjust = gtk.Adjustment(1, 1, self.n_pages, 1)
         page_selector = gtk.SpinButton(adjust, 0, 0);
         page_selector.connect("value-changed", self.on_changed)
 
@@ -43,6 +43,11 @@ class Poprender(object):
 
         hbox.pack_start(lab, False, False, 4)
         hbox.pack_start(scale_selector, False, False, 0)
+
+        b_scan_fonts = gtk.Button('Scan Fonts')
+        b_scan_fonts.connect("clicked", self.on_scan_fonts)
+        
+        hbox.pack_start(b_scan_fonts, False, False, 4)
 
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -82,7 +87,15 @@ class Poprender(object):
         cr.rectangle(0, 0, self.width, self.height)
         cr.fill()
         self.current_page.render(cr)
+    
+    def on_scan_fonts(self, widget):
+        font_info = poppler.FontInfo(self.document)
+        iter = font_info.scan(self.n_pages)
         
+        print iter.get_full_name()
+        
+        while iter.next():
+            print iter.get_full_name()
 
     def main(self):
         gtk.main()
