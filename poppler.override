@@ -65,7 +65,8 @@ ignore-glob
 %%
 override poppler_document_get_attachments noargs
 static PyObject *
-_wrap_poppler_document_get_attachments(PyGObject *self) {
+_wrap_poppler_document_get_attachments(PyGObject *self)
+{
     GList           *item_list;
     PyObject        *ret;
     
@@ -77,11 +78,13 @@ _wrap_poppler_document_get_attachments(PyGObject *self) {
 %%
 override poppler_page_find_text kwargs
 static PyObject *
-_wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs) {
+_wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
     static char     *kwlist[] = { "text", NULL };
     const gchar     *text;
     GList           *item_list;
     PyObject        *ret;
+    
     if (!PyArg_ParseTupleAndKeywords(args, kwargs,
                                      "s",
                                      kwlist,
@@ -107,3 +110,22 @@ _wrap_poppler_page_get_size(PyGObject *self)
     return Py_BuildValue("dd", width, height);
 }
 %%
+override poppler_font_info_scan
+static PyObject *
+_wrap_poppler_font_info_scan(PyGObject *self, PyObject *args, PyObject *kwargs)
+{
+    static char         *kwlist[] = { "n_pages", NULL };
+    int                 n_pages;
+    PopplerFontsIter    *fonts_iter;
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "i",
+                                     kwlist,
+                                     &n_pages)) {
+        return NULL;
+    }
+    
+    poppler_font_info_scan (POPPLER_FONT_INFO(self->obj), n_pages, &fonts_iter);
+    
+    return pyg_boxed_new(POPPLER_TYPE_FONTS_ITER, fonts_iter, TRUE, TRUE);
+}
