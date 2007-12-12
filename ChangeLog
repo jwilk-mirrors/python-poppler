@@ -1,3 +1,7 @@
+2007-12-12 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* demo/demo-poppler.py: Add a simple example.
+
 2007-12-09 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.defs: Strip poppler prefix from functions, make
