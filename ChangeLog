@@ -1,3 +1,7 @@
+2007-12-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.override: Wrap poppler_page_get_thumbnail_size
+
 2007-11-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* configure.ac: bump to version 0.6.2
