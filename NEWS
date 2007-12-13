@@ -1,3 +1,10 @@
+PyPoppler 0.6.1     (Dec 13 2007)
+=================================
+
+    o demo-poppler.py: Add a simple example. (Gian Mario)
+    o Wrap poppler_font_info_scan (Gian Mario)
+    o Adjust a couple of functions naming (Gian Mario)
+
 PyPoppler 0.6.0     (Nov 13 2007)
 =================================
 
