@@ -110,7 +110,7 @@ _wrap_poppler_page_get_size(PyGObject *self)
     return Py_BuildValue("dd", width, height);
 }
 %%
-override poppler_font_info_scan
+override poppler_font_info_scan kwargs
 static PyObject *
 _wrap_poppler_font_info_scan(PyGObject *self, PyObject *args, PyObject *kwargs)
 {
@@ -128,4 +128,54 @@ _wrap_poppler_font_info_scan(PyGObject *self, PyObject *args, PyObject *kwargs)
     poppler_font_info_scan (POPPLER_FONT_INFO(self->obj), n_pages, &fonts_iter);
     
     return pyg_boxed_new(POPPLER_TYPE_FONTS_ITER, fonts_iter, TRUE, TRUE);
+}
+%%
+override poppler_page_get_thumbnail_size noargs
+static PyObject *
+_wrap_poppler_page_get_thumbnail_size(PyGObject *self)
+{
+    int                 width, height;
+    
+    poppler_page_get_thumbnail_size (POPPLER_PAGE(self->obj), &width, &height);
+    
+    return Py_BuildValue("ii", width, height);
+}
+%%
+override poppler_page_get_link_mapping noargs
+static PyObject *
+_wrap_poppler_page_get_link_mapping(PyGObject *self)
+{
+    GList           *item_list;
+    PyObject        *ret;
+
+    item_list = poppler_page_get_link_mapping(POPPLER_PAGE(self->obj));
+    ret = _glist_to_pylist_objs(item_list);
+    g_list_free(item_list);
+    return ret;
+}
+%%
+override poppler_page_get_image_mapping noargs
+static PyObject *
+_wrap_poppler_page_get_image_mapping(PyGObject *self)
+{
+    GList           *item_list;
+    PyObject        *ret;
+
+    item_list = poppler_page_get_image_mapping(POPPLER_PAGE(self->obj));
+    ret = _glist_to_pylist_objs(item_list);
+    g_list_free(item_list);
+    return ret;
+}
+%%
+override poppler_page_get_form_field_mapping noargs
+static PyObject *
+_wrap_poppler_page_get_form_field_mapping(PyGObject *self)
+{
+    GList           *item_list;
+    PyObject        *ret;
+
+    item_list = poppler_page_get_form_field_mapping(POPPLER_PAGE(self->obj));
+    ret = _glist_to_pylist_objs(item_list);
+    g_list_free(item_list);
+    return ret;
 }
