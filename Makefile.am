@@ -1,6 +1,8 @@
 # require automake-1.7
 AUTOMAKE_OPTIONS=1.7
 
+SUBDIRS = demo
+
 INCLUDES = $(PYTHON_INCLUDES)
 
 EXTRA_DIST = poppler.defs poppler.override 

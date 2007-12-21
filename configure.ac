@@ -99,6 +99,7 @@ JH_ADD_CFLAG([-fno-strict-aliasing])
 dnl output
 AC_CONFIG_FILES(
   Makefile
+  demo/Makefile
 )
 
 AC_OUTPUT
