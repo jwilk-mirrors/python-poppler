@@ -1,3 +1,13 @@
+=== 0.6.2 ===
+2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: update
+
+2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* demo/Makefile.am: ship the demo in tarball, thanks to Pablo Rodriguez
+	for pointing this out.
+
 2007-12-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.override: Wrap poppler_page_get_image_mapping and

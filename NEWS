@@ -1,3 +1,12 @@
+PyPoppler 0.6.2     (Dec 21 2007)
+=================================
+
+    o really ship the demo, fix Makefiles (Gian Mario)
+    o Wrap  poppler_page_get_image_mapping,
+      poppler_page_get_form_field_mapping (Gian Mario)
+    o Wrap poppler_page_get_link_mapping (Gian Mario)
+    o Wrap poppler_page_get_thumbnail_size (Gian Mario)
+
 PyPoppler 0.6.1     (Dec 13 2007)
 =================================
 
