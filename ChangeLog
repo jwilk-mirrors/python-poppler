@@ -1,5 +1,10 @@
 2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* demo/demo-poppler.py: fix a small bug, index for pages starts at 0,
+	thanks to Pablo Rodriguez, fix rendering thanks to Ian Kanto .
+
+2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* configure.ac: post release version bump 0.6.3
 
 === 0.6.2 ===

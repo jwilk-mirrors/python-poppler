@@ -9,19 +9,17 @@ class Poprender(object):
         
         self.document = poppler.document_new_from_file (uri, None)
         self.n_pages = self.document.get_n_pages()
-        self.current_page = self.document.get_page(1)
+
+        self.current_page = self.document.get_page(0)
         self.scale = 1
         self.width, self.height = self.current_page.get_size()
-        self.surface = cairo.ImageSurface(cairo.FORMAT_RGB24,
-                                          int(self.width),
-                                          int(self.height))
         
         win = gtk.Window(gtk.WINDOW_TOPLEVEL)
         win.set_default_size(600, 600)
         win.set_title ("Poppler GLib Demo")
         win.connect("delete-event", gtk.main_quit)
         
-        adjust = gtk.Adjustment(1, 1, self.n_pages, 1)
+        adjust = gtk.Adjustment(0, 0, self.n_pages -1, 1)
         page_selector = gtk.SpinButton(adjust, 0, 0);
         page_selector.connect("value-changed", self.on_changed)
 
@@ -78,7 +76,6 @@ class Poprender(object):
     
     def on_expose(self, widget, event):
         cr = widget.window.cairo_create()
-        cr.set_source_surface(self.surface)
         cr.set_source_rgb(1, 1, 1)
         
         if self.scale != 1:
