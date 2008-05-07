@@ -1,3 +1,10 @@
+PyPoppler 0.8.0     (May 07 2008)
+=================================
+
+    o Fix a couple of bugs in the demo, thanks to Pablo Rodriguez
+      and to Ian Kanto
+    o Update with poppler 0.8 API. (Gian Mario)
+
 PyPoppler 0.6.2     (Dec 21 2007)
 =================================
 

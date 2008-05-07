@@ -21,7 +21,7 @@
   (release-func "poppler_image_mapping_free")
   (fields
     '("PopplerRectangle" "area")
-    '("GdkPixbuf*" "image")
+    '("gint" "image_id")
   )
 )
 
@@ -68,6 +68,19 @@
   )
 )
 
+(define-boxed Color
+  (in-module "Poppler")
+  (c-name "PopplerColor")
+  (gtype-id "POPPLER_TYPE_COLOR")
+  (copy-func "poppler_color_copy")
+  (release-func "poppler_color_free")
+  (fields
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
 (define-boxed Action
   (in-module "Poppler")
   (c-name "PopplerAction")
@@ -111,6 +124,50 @@
   (gtype-id "POPPLER_TYPE_INDEX_ITER")
   (copy-func "poppler_index_iter_copy")
   (release-func "poppler_index_iter_free")
+)
+
+(define-boxed AnnotCalloutLine
+  (in-module "Poppler")
+  (c-name "PopplerAnnotCalloutLine")
+  (gtype-id "POPPLER_TYPE_ANNOT_CALLOUT_LINE")
+  (copy-func "poppler_annot_callout_line_copy")
+  (release-func "poppler_annot_callout_line_free")
+)
+
+(define-boxed AnnotMapping
+  (in-module "Poppler")
+  (c-name "PopplerAnnotMapping")
+  (gtype-id "POPPLER_TYPE_ANNOT_MAPPING")
+  (copy-func "poppler_annot_mapping_copy")
+  (release-func "poppler_annot_mapping_free")
+)
+
+(define-object Annot
+  (in-module "Poppler")
+  (parent "GObject")
+  (c-name "PopplerAnnot")
+  (gtype-id "POPPLER_TYPE_ANNOT")
+)
+
+(define-object AnnotMarkup
+  (in-module "Poppler")
+  (parent "PopplerAnnot")
+  (c-name "PopplerAnnotMarkup")
+  (gtype-id "POPPLER_TYPE_ANNOT_MARKUP")
+)
+
+(define-object AnnotText
+  (in-module "Poppler")
+  (parent "PopplerAnnotMarkup")
+  (c-name "PopplerAnnotText")
+  (gtype-id "POPPLER_TYPE_ANNOT_TEXT")
+)
+
+(define-object AnnotFreeText
+  (in-module "Poppler")
+  (parent "PopplerAnnotMarkup")
+  (c-name "PopplerAnnotFreeText")
+  (gtype-id "POPPLER_TYPE_ANNOT_FREE_TEXT")
 )
 
 (define-object Document
@@ -163,6 +220,7 @@
   (gtype-id "POPPLER_TYPE_ACTION_TYPE")
   (values
     '("unknown" "POPPLER_ACTION_UNKNOWN")
+    '("none" "POPPLER_ACTION_NONE")
     '("goto-dest" "POPPLER_ACTION_GOTO_DEST")
     '("goto-remote" "POPPLER_ACTION_GOTO_REMOTE")
     '("launch" "POPPLER_ACTION_LAUNCH")
@@ -187,6 +245,106 @@
     '("fitbh" "POPPLER_DEST_FITBH")
     '("fitbv" "POPPLER_DEST_FITBV")
     '("named" "POPPLER_DEST_NAMED")
+  )
+)
+
+(define-enum AnnotType
+  (in-module "Poppler")
+  (c-name "PopplerAnnotType")
+  (gtype-id "POPPLER_TYPE_ANNOT_TYPE")
+  (values
+    '("unknown" "POPPLER_ANNOT_UNKNOWN")
+    '("text" "POPPLER_ANNOT_TEXT")
+    '("link" "POPPLER_ANNOT_LINK")
+    '("free-text" "POPPLER_ANNOT_FREE_TEXT")
+    '("line" "POPPLER_ANNOT_LINE")
+    '("square" "POPPLER_ANNOT_SQUARE")
+    '("circle" "POPPLER_ANNOT_CIRCLE")
+    '("polygon" "POPPLER_ANNOT_POLYGON")
+    '("poly-line" "POPPLER_ANNOT_POLY_LINE")
+    '("highlight" "POPPLER_ANNOT_HIGHLIGHT")
+    '("underline" "POPPLER_ANNOT_UNDERLINE")
+    '("squiggly" "POPPLER_ANNOT_SQUIGGLY")
+    '("strike-out" "POPPLER_ANNOT_STRIKE_OUT")
+    '("stamp" "POPPLER_ANNOT_STAMP")
+    '("caret" "POPPLER_ANNOT_CARET")
+    '("ink" "POPPLER_ANNOT_INK")
+    '("popup" "POPPLER_ANNOT_POPUP")
+    '("file-attachment" "POPPLER_ANNOT_FILE_ATTACHMENT")
+    '("sound" "POPPLER_ANNOT_SOUND")
+    '("movie" "POPPLER_ANNOT_MOVIE")
+    '("widget" "POPPLER_ANNOT_WIDGET")
+    '("screen" "POPPLER_ANNOT_SCREEN")
+    '("printer-mark" "POPPLER_ANNOT_PRINTER_MARK")
+    '("trap-net" "POPPLER_ANNOT_TRAP_NET")
+    '("watermark" "POPPLER_ANNOT_WATERMARK")
+    '("3d" "POPPLER_ANNOT_3D")
+  )
+)
+
+(define-flags AnnotFlag
+  (in-module "Poppler")
+  (c-name "PopplerAnnotFlag")
+  (gtype-id "POPPLER_TYPE_ANNOT_FLAG")
+  (values
+    '("unknown" "POPPLER_ANNOT_FLAG_UNKNOWN")
+    '("invisible" "POPPLER_ANNOT_FLAG_INVISIBLE")
+    '("hidden" "POPPLER_ANNOT_FLAG_HIDDEN")
+    '("print" "POPPLER_ANNOT_FLAG_PRINT")
+    '("no-zoom" "POPPLER_ANNOT_FLAG_NO_ZOOM")
+    '("no-rotate" "POPPLER_ANNOT_FLAG_NO_ROTATE")
+    '("no-view" "POPPLER_ANNOT_FLAG_NO_VIEW")
+    '("read-only" "POPPLER_ANNOT_FLAG_READ_ONLY")
+    '("locked" "POPPLER_ANNOT_FLAG_LOCKED")
+    '("toggle-no-view" "POPPLER_ANNOT_FLAG_TOGGLE_NO_VIEW")
+    '("locked-contents" "POPPLER_ANNOT_FLAG_LOCKED_CONTENTS")
+  )
+)
+
+(define-enum AnnotMarkupReplyType
+  (in-module "Poppler")
+  (c-name "PopplerAnnotMarkupReplyType")
+  (gtype-id "POPPLER_TYPE_ANNOT_MARKUP_REPLY_TYPE")
+  (values
+    '("r" "POPPLER_ANNOT_MARKUP_REPLY_TYPE_R")
+    '("group" "POPPLER_ANNOT_MARKUP_REPLY_TYPE_GROUP")
+  )
+)
+
+(define-enum AnnotExternalDataType
+  (in-module "Poppler")
+  (c-name "PopplerAnnotExternalDataType")
+  (gtype-id "POPPLER_TYPE_ANNOT_EXTERNAL_DATA_TYPE")
+  (values
+    '("3d" "POPPLER_ANNOT_EXTERNAL_DATA_MARKUP_3D")
+    '("unknown" "POPPLER_ANNOT_EXTERNAL_DATA_MARKUP_UNKNOWN")
+  )
+)
+
+(define-enum AnnotTextState
+  (in-module "Poppler")
+  (c-name "PopplerAnnotTextState")
+  (gtype-id "POPPLER_TYPE_ANNOT_TEXT_STATE")
+  (values
+    '("marked" "POPPLER_ANNOT_TEXT_STATE_MARKED")
+    '("unmarked" "POPPLER_ANNOT_TEXT_STATE_UNMARKED")
+    '("accepted" "POPPLER_ANNOT_TEXT_STATE_ACCEPTED")
+    '("rejected" "POPPLER_ANNOT_TEXT_STATE_REJECTED")
+    '("cancelled" "POPPLER_ANNOT_TEXT_STATE_CANCELLED")
+    '("completed" "POPPLER_ANNOT_TEXT_STATE_COMPLETED")
+    '("none" "POPPLER_ANNOT_TEXT_STATE_NONE")
+    '("unknown" "POPPLER_ANNOT_TEXT_STATE_UNKNOWN")
+  )
+)
+
+(define-enum AnnotFreeTextQuadding
+  (in-module "Poppler")
+  (c-name "PopplerAnnotFreeTextQuadding")
+  (gtype-id "POPPLER_TYPE_ANNOT_FREE_TEXT_QUADDING")
+  (values
+    '("left-justified" "POPPLER_ANNOT_FREE_TEXT_QUADDING_LEFT_JUSTIFIED")
+    '("centered" "POPPLER_ANNOT_FREE_TEXT_QUADDING_CENTERED")
+    '("right-justified" "POPPLER_ANNOT_FREE_TEXT_QUADDING_RIGHT_JUSTIFIED")
   )
 )
 
@@ -265,6 +423,7 @@
     '("ok-to-modify" "POPPLER_PERMISSIONS_OK_TO_MODIFY")
     '("ok-to-copy" "POPPLER_PERMISSIONS_OK_TO_COPY")
     '("ok-to-add-notes" "POPPLER_PERMISSIONS_OK_TO_ADD_NOTES")
+    '("ok-to-fill-form" "POPPLER_PERMISSIONS_OK_TO_FILL_FORM")
     '("full" "POPPLER_PERMISSIONS_FULL")
   )
 )
@@ -321,6 +480,9 @@
   (values
     '("invalid" "POPPLER_ERROR_INVALID")
     '("encrypted" "POPPLER_ERROR_ENCRYPTED")
+    '("open-file" "POPPLER_ERROR_OPEN_FILE")
+    '("bad-catalog" "POPPLER_ERROR_BAD_CATALOG")
+    '("damaged" "POPPLER_ERROR_DAMAGED")
   )
 )
 
@@ -437,6 +599,161 @@
 
 
 
+;; From poppler-annot.h
+
+(define-function poppler_annot_get_type
+  (c-name "poppler_annot_get_type")
+  (return-type "GType")
+)
+
+(define-method get_annot_type
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_annot_type")
+  (return-type "PopplerAnnotType")
+)
+
+(define-method get_contents
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_contents")
+  (return-type "gchar*")
+)
+
+(define-method get_name
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_name")
+  (return-type "gchar*")
+)
+
+(define-method get_modified
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_modified")
+  (return-type "gchar*")
+)
+
+(define-method get_flags
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_flags")
+  (return-type "PopplerAnnotFlag")
+)
+
+(define-method get_color
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_get_color")
+  (return-type "PopplerColor*")
+)
+
+(define-function poppler_annot_markup_get_type
+  (c-name "poppler_annot_markup_get_type")
+  (return-type "GType")
+)
+
+(define-method get_label
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_label")
+  (return-type "gchar*")
+)
+
+(define-method get_popup_is_open
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_popup_is_open")
+  (return-type "gboolean")
+)
+
+(define-method get_opacity
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_opacity")
+  (return-type "gdouble")
+)
+
+(define-method get_date
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_date")
+  (return-type "GDate*")
+)
+
+(define-method get_subject
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_subject")
+  (return-type "gchar*")
+)
+
+(define-method get_reply_to
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_reply_to")
+  (return-type "PopplerAnnotMarkupReplyType")
+)
+
+(define-method get_external_data
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_external_data")
+  (return-type "PopplerAnnotExternalDataType")
+)
+
+(define-function poppler_annot_text_get_type
+  (c-name "poppler_annot_text_get_type")
+  (return-type "GType")
+)
+
+(define-method get_is_open
+  (of-object "PopplerAnnotText")
+  (c-name "poppler_annot_text_get_is_open")
+  (return-type "gboolean")
+)
+
+(define-method get_icon
+  (of-object "PopplerAnnotText")
+  (c-name "poppler_annot_text_get_icon")
+  (return-type "gchar*")
+)
+
+(define-method get_state
+  (of-object "PopplerAnnotText")
+  (c-name "poppler_annot_text_get_state")
+  (return-type "PopplerAnnotTextState")
+)
+
+(define-function poppler_annot_free_text_get_type
+  (c-name "poppler_annot_free_text_get_type")
+  (return-type "GType")
+)
+
+(define-method get_quadding
+  (of-object "PopplerAnnotFreeText")
+  (c-name "poppler_annot_free_text_get_quadding")
+  (return-type "PopplerAnnotFreeTextQuadding")
+)
+
+(define-method get_callout_line
+  (of-object "PopplerAnnotFreeText")
+  (c-name "poppler_annot_free_text_get_callout_line")
+  (return-type "PopplerAnnotCalloutLine*")
+)
+
+(define-function poppler_annot_callout_line_get_type
+  (c-name "poppler_annot_callout_line_get_type")
+  (return-type "GType")
+)
+
+(define-function annot_callout_line_new
+  (c-name "poppler_annot_callout_line_new")
+  (is-constructor-of "PopplerAnnotCalloutLine")
+  (return-type "PopplerAnnotCalloutLine*")
+)
+
+(define-method copy
+  (of-object "PopplerAnnotCalloutLine")
+  (c-name "poppler_annot_callout_line_copy")
+  (return-type "PopplerAnnotCalloutLine*")
+)
+
+(define-method free
+  (of-object "PopplerAnnotCalloutLine")
+  (c-name "poppler_annot_callout_line_free")
+  (return-type "none")
+)
+
+
+
 ;; From poppler-attachment.h
 
 (define-function poppler_attachment_get_type
@@ -498,6 +815,16 @@
 (define-method save
   (of-object "PopplerDocument")
   (c-name "poppler_document_save")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method save_a_copy
+  (of-object "PopplerDocument")
+  (c-name "poppler_document_save_a_copy")
   (return-type "gboolean")
   (parameters
     '("const-char*" "uri")
@@ -799,6 +1126,36 @@
   (return-type "GType")
 )
 
+(define-function poppler_annot_type_get_type
+  (c-name "poppler_annot_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_annot_flag_get_type
+  (c-name "poppler_annot_flag_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_annot_markup_reply_type_get_type
+  (c-name "poppler_annot_markup_reply_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_annot_external_data_type_get_type
+  (c-name "poppler_annot_external_data_type_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_annot_text_state_get_type
+  (c-name "poppler_annot_text_state_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_annot_free_text_quadding_get_type
+  (c-name "poppler_annot_free_text_quadding_get_type")
+  (return-type "GType")
+)
+
 (define-function poppler_error_get_type
   (c-name "poppler_error_get_type")
   (return-type "GType")
@@ -1079,12 +1436,78 @@
   )
 )
 
+(define-method render_to_pixbuf_for_printing
+  (of-object "PopplerPage")
+  (c-name "poppler_page_render_to_pixbuf_for_printing")
+  (return-type "none")
+  (parameters
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "src_width")
+    '("int" "src_height")
+    '("double" "scale")
+    '("int" "rotation")
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-method get_thumbnail_pixbuf
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_thumbnail_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method render_selection_to_pixbuf
+  (of-object "PopplerPage")
+  (c-name "poppler_page_render_selection_to_pixbuf")
+  (return-type "none")
+  (parameters
+    '("gdouble" "scale")
+    '("int" "rotation")
+    '("GdkPixbuf*" "pixbuf")
+    '("PopplerRectangle*" "selection")
+    '("PopplerRectangle*" "old_selection")
+    '("PopplerSelectionStyle" "style")
+    '("GdkColor*" "glyph_color")
+    '("GdkColor*" "background_color")
+  )
+)
+
 (define-method render
   (of-object "PopplerPage")
   (c-name "poppler_page_render")
   (return-type "none")
   (parameters
     '("cairo_t*" "cairo")
+  )
+)
+
+(define-method render_for_printing
+  (of-object "PopplerPage")
+  (c-name "poppler_page_render_for_printing")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cairo")
+  )
+)
+
+(define-method get_thumbnail
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_thumbnail")
+  (return-type "cairo_surface_t*")
+)
+
+(define-method render_selection
+  (of-object "PopplerPage")
+  (c-name "poppler_page_render_selection")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cairo")
+    '("PopplerRectangle*" "selection")
+    '("PopplerRectangle*" "old_selection")
+    '("PopplerSelectionStyle" "style")
+    '("PopplerColor*" "glyph_color")
+    '("PopplerColor*" "background_color")
   )
 )
 
@@ -1114,12 +1537,6 @@
   (of-object "PopplerPage")
   (c-name "poppler_page_get_transition")
   (return-type "PopplerPageTransition*")
-)
-
-(define-method get_thumbnail
-  (of-object "PopplerPage")
-  (c-name "poppler_page_get_thumbnail")
-  (return-type "GdkPixbuf*")
 )
 
 (define-method get_thumbnail_size
@@ -1160,13 +1577,32 @@
   )
 )
 
+(define-method get_selection_region
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_selection_region")
+  (return-type "GList*")
+  (parameters
+    '("gdouble" "scale")
+    '("PopplerSelectionStyle" "style")
+    '("PopplerRectangle*" "selection")
+  )
+)
+
+(define-function poppler_page_selection_region_free
+  (c-name "poppler_page_selection_region_free")
+  (return-type "none")
+  (parameters
+    '("GList*" "region")
+  )
+)
+
 (define-method get_link_mapping
   (of-object "PopplerPage")
   (c-name "poppler_page_get_link_mapping")
   (return-type "GList*")
 )
 
-(define-function page_free_link_mapping
+(define-function poppler_page_free_link_mapping
   (c-name "poppler_page_free_link_mapping")
   (return-type "none")
   (parameters
@@ -1180,11 +1616,20 @@
   (return-type "GList*")
 )
 
-(define-function page_free_image_mapping
+(define-function poppler_page_free_image_mapping
   (c-name "poppler_page_free_image_mapping")
   (return-type "none")
   (parameters
     '("GList*" "list")
+  )
+)
+
+(define-method get_image
+  (of-object "PopplerPage")
+  (c-name "poppler_page_get_image")
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("gint" "image_id")
   )
 )
 
@@ -1194,7 +1639,7 @@
   (return-type "GList*")
 )
 
-(define-function page_free_form_field_mapping
+(define-function poppler_page_free_form_field_mapping
   (c-name "poppler_page_free_form_field_mapping")
   (return-type "none")
   (parameters
@@ -1202,44 +1647,17 @@
   )
 )
 
-(define-method get_selection_region
+(define-method get_annot_mapping
   (of-object "PopplerPage")
-  (c-name "poppler_page_get_selection_region")
-  (return-type "GdkRegion*")
-  (parameters
-    '("gdouble" "scale")
-    '("PopplerSelectionStyle" "style")
-    '("PopplerRectangle*" "selection")
-  )
+  (c-name "poppler_page_get_annot_mapping")
+  (return-type "GList*")
 )
 
-(define-method render_selection
-  (of-object "PopplerPage")
-  (c-name "poppler_page_render_selection")
+(define-function poppler_page_free_annot_mapping
+  (c-name "poppler_page_free_annot_mapping")
   (return-type "none")
   (parameters
-    '("cairo_t*" "cairo")
-    '("PopplerRectangle*" "selection")
-    '("PopplerRectangle*" "old_selection")
-    '("PopplerSelectionStyle" "style")
-    '("GdkColor*" "glyph_color")
-    '("GdkColor*" "background_color")
-  )
-)
-
-(define-method render_selection_to_pixbuf
-  (of-object "PopplerPage")
-  (c-name "poppler_page_render_selection_to_pixbuf")
-  (return-type "none")
-  (parameters
-    '("gdouble" "scale")
-    '("int" "rotation")
-    '("GdkPixbuf*" "pixbuf")
-    '("PopplerRectangle*" "selection")
-    '("PopplerRectangle*" "old_selection")
-    '("PopplerSelectionStyle" "style")
-    '("GdkColor*" "glyph_color")
-    '("GdkColor*" "background_color")
+    '("GList*" "list")
   )
 )
 
@@ -1272,6 +1690,29 @@
 (define-method free
   (of-object "PopplerRectangle")
   (c-name "poppler_rectangle_free")
+  (return-type "none")
+)
+
+(define-function poppler_color_get_type
+  (c-name "poppler_color_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_color_new
+  (c-name "poppler_color_new")
+  (is-constructor-of "PopplerColor")
+  (return-type "PopplerColor*")
+)
+
+(define-method copy
+  (of-object "PopplerColor")
+  (c-name "poppler_color_copy")
+  (return-type "PopplerColor*")
+)
+
+(define-method free
+  (of-object "PopplerColor")
+  (c-name "poppler_color_free")
   (return-type "none")
 )
 
@@ -1367,4 +1808,25 @@
   (return-type "none")
 )
 
+(define-function poppler_annot_mapping_get_type
+  (c-name "poppler_annot_mapping_get_type")
+  (return-type "GType")
+)
 
+(define-function poppler_annot_mapping_new
+  (c-name "poppler_annot_mapping_new")
+  (is-constructor-of "PopplerAnnotMapping")
+  (return-type "PopplerAnnotMapping*")
+)
+
+(define-method copy
+  (of-object "PopplerAnnotMapping")
+  (c-name "poppler_annot_mapping_copy")
+  (return-type "PopplerAnnotMapping*")
+)
+
+(define-method free
+  (of-object "PopplerAnnotMapping")
+  (c-name "poppler_annot_mapping_free")
+  (return-type "none")
+)

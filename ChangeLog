@@ -1,3 +1,13 @@
+=== 0.8.0 ===
+2008-05-07 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* NEWS: update
+
+2008-05-07 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs:
+        * poppler.override: Update with poppler 0.8 API.
+
 2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* demo/demo-poppler.py: fix a small bug, index for pages starts at 0,

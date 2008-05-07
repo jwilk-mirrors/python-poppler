@@ -2,14 +2,14 @@ AC_PREREQ(2.52)
 
 dnl the pypoppler version number
 m4_define(pypoppler_major_version, 0)
-m4_define(pypoppler_minor_version, 6)
-m4_define(pypoppler_micro_version, 3)
+m4_define(pypoppler_minor_version, 8)
+m4_define(pypoppler_micro_version, 0)
 m4_define(pypoppler_version, pypoppler_major_version.pypoppler_minor_version.pypoppler_micro_version)
 
 dnl versions of packages we require ...
 m4_define(pygobject_required_version, 2.10.1)
 m4_define(pygtk_required_version, 2.10.0)
-m4_define(poppler_glib_required_version, 0.6)
+m4_define(poppler_glib_required_version, 0.8)
 m4_define(atk_required_version, 1.6.0)
 m4_define(pycairo_required_version,    1.2.0)
 

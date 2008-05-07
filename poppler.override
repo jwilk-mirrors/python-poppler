@@ -25,6 +25,21 @@ _glist_to_pylist_objs (GList *source)
     return dest;
 }
 
+static PyObject *
+_glist_to_pylist_boxed (GList *source, GType boxed_type)
+{
+    GList *iter;
+    PyObject *dest = PyList_New (0);
+    for (iter = source; iter != NULL; iter = iter->next)
+    {
+        PyObject *item = pyg_boxed_new (boxed_type, iter->data,
+                                        TRUE, TRUE);
+        PyList_Append (dest, item);
+        Py_DECREF (item);
+    }
+    return dest;
+}
+
 // from pygtk-private.h
  
 #ifndef GDK_TYPE_REGION
@@ -93,7 +108,7 @@ _wrap_poppler_page_find_text(PyGObject *self, PyObject *args, PyObject *kwargs)
     }
 
     item_list = poppler_page_find_text(POPPLER_PAGE(self->obj), text);
-    ret = _glist_to_pylist_objs(item_list);
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_RECTANGLE);
     g_list_free(item_list);
     return ret;
 }
@@ -149,7 +164,7 @@ _wrap_poppler_page_get_link_mapping(PyGObject *self)
     PyObject        *ret;
 
     item_list = poppler_page_get_link_mapping(POPPLER_PAGE(self->obj));
-    ret = _glist_to_pylist_objs(item_list);
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_LINK_MAPPING);
     g_list_free(item_list);
     return ret;
 }
@@ -162,7 +177,7 @@ _wrap_poppler_page_get_image_mapping(PyGObject *self)
     PyObject        *ret;
 
     item_list = poppler_page_get_image_mapping(POPPLER_PAGE(self->obj));
-    ret = _glist_to_pylist_objs(item_list);
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_IMAGE_MAPPING);
     g_list_free(item_list);
     return ret;
 }
@@ -175,7 +190,46 @@ _wrap_poppler_page_get_form_field_mapping(PyGObject *self)
     PyObject        *ret;
 
     item_list = poppler_page_get_form_field_mapping(POPPLER_PAGE(self->obj));
-    ret = _glist_to_pylist_objs(item_list);
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_FORM_FIELD_MAPPING);
     g_list_free(item_list);
     return ret;
+}
+%%
+override poppler_page_get_annot_mapping noargs
+static PyObject *
+_wrap_poppler_page_get_annot_mapping(PyGObject *self)
+{
+    GList           *item_list;
+    PyObject        *ret;
+
+    item_list = poppler_page_get_annot_mapping(POPPLER_PAGE(self->obj));
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_ANNOT_MAPPING);
+    g_list_free(item_list);
+    return ret;
+}
+%%
+override poppler_page_get_selection_region kwargs
+static PyObject *
+_wrap_poppler_page_get_selection_region(PyGObject *self,
+                                        PyObject *args,
+                                        PyObject *kwargs)
+{
+    static char             *kwlist[] = { "scale", "style", "selection", NULL };
+    double                  scale;
+    PopplerSelectionStyle   style;
+    PopplerRectangle        *selection;
+    GList                   *item_list;
+    PyObject                *ret;
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "diO:Page.get_selection_region", kwlist,
+                                     &scale, &style, &selection)) {
+        return NULL;
+    }
+
+    item_list = poppler_page_get_selection_region(POPPLER_PAGE(self->obj),
+                                                  scale, style, selection);
+    ret = _glist_to_pylist_boxed(item_list, POPPLER_TYPE_RECTANGLE);
+    g_list_free(item_list);
+    return ret;  
 }
