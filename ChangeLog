@@ -1,3 +1,7 @@
+2008-06-10 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* configure.ac: post release version bump 0.8.1
+
 === 0.8.0 ===
 2008-05-07 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
@@ -6,7 +10,7 @@
 2008-05-07 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.defs:
-        * poppler.override: Update with poppler 0.8 API.
+	* poppler.override: Update with poppler 0.8 API.
 
 2007-12-21 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
@@ -30,7 +34,7 @@
 2007-12-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.override: Wrap poppler_page_get_image_mapping and
-        poppler_page_get_form_field_mapping
+	poppler_page_get_form_field_mapping
 
 2007-12-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
@@ -60,7 +64,7 @@
 2007-12-09 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.defs: Strip poppler prefix from functions, make
-        document_new_from_file actually work.
+	document_new_from_file actually work.
 
 === 0.6.0 ===
 2007-11-12 Gian Mario Tagliaretti  <gianmt@gnome.org>
