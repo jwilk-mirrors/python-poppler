@@ -1,5 +1,4 @@
-/* -*- Mode: C; c-basic-offset: 4 -*- */
-// vim: ft=c
+/* -*- Mode: C; c-basic-offset: 4 -*-
  * Copyright (C) 2007-2008, Gian Mario Tagliaretti
  *
  * This program is free software; you can redistribute it and/or modify
