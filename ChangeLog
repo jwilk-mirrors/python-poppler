@@ -1,5 +1,11 @@
 2008-06-10 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
+	* poppler.override:
+	* popplermodule.c:
+	* demo/demo-poppler.py: Add GPL header.
+
+2008-06-10 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
 	* poppler.defs: Fix a compilation failure against poppler 0.8.3
 	Fixes LP#238653. Patch from Chris Mayo.
 
