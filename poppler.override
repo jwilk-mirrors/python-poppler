@@ -249,3 +249,55 @@ _wrap_poppler_page_get_selection_region(PyGObject *self,
     g_list_free(item_list);
     return ret;  
 }
+%%
+override-attr PopplerRectangle.x1
+static int
+_wrap_poppler_rectangle__set_x1(PyGBoxed *self, PyObject *value, void *closure)
+{
+    gint val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+    pyg_boxed_get(self, PopplerRectangle)->x1 = val;
+    return 0;
+}
+%%
+override-attr PopplerRectangle.x2
+static int
+_wrap_poppler_rectangle__set_x2(PyGBoxed *self, PyObject *value, void *closure)
+{
+    gint val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+    pyg_boxed_get(self, PopplerRectangle)->x2 = val;
+    return 0;
+}
+%%
+override-attr PopplerRectangle.y1
+static int
+_wrap_poppler_rectangle__set_y1(PyGBoxed *self, PyObject *value, void *closure)
+{
+    gint val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+    pyg_boxed_get(self, PopplerRectangle)->y1 = val;
+    return 0;
+}
+%%
+override-attr PopplerRectangle.y2
+static int
+_wrap_poppler_rectangle__set_y2(PyGBoxed *self, PyObject *value, void *closure)
+{
+    gint val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+    pyg_boxed_get(self, PopplerRectangle)->y2 = val;
+    return 0;
+}
