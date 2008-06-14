@@ -1,4 +1,9 @@
-2008-06-10 Gian Mario Tagliaretti  <gianmt@gnome.org>
+2008-06-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.override: poppler.Rectangle fields are double not gint, fixed.
+	Make poppler.Color fields writable, patch by Gennady Telegin.
+
+2008-06-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.override: Make poppler.Rectangle fields writable.
 

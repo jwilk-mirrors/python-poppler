@@ -254,9 +254,9 @@ override-attr PopplerRectangle.x1
 static int
 _wrap_poppler_rectangle__set_x1(PyGBoxed *self, PyObject *value, void *closure)
 {
-    gint val;
+    double val;
 
-    val = PyInt_AsLong(value);
+    val = PyFloat_AsDouble(value);
     if (PyErr_Occurred())
         return -1;
     pyg_boxed_get(self, PopplerRectangle)->x1 = val;
@@ -267,9 +267,9 @@ override-attr PopplerRectangle.x2
 static int
 _wrap_poppler_rectangle__set_x2(PyGBoxed *self, PyObject *value, void *closure)
 {
-    gint val;
+    double val;
 
-    val = PyInt_AsLong(value);
+    val = PyFloat_AsDouble(value);
     if (PyErr_Occurred())
         return -1;
     pyg_boxed_get(self, PopplerRectangle)->x2 = val;
@@ -280,9 +280,9 @@ override-attr PopplerRectangle.y1
 static int
 _wrap_poppler_rectangle__set_y1(PyGBoxed *self, PyObject *value, void *closure)
 {
-    gint val;
+    double val;
 
-    val = PyInt_AsLong(value);
+    val = PyFloat_AsDouble(value);
     if (PyErr_Occurred())
         return -1;
     pyg_boxed_get(self, PopplerRectangle)->y1 = val;
@@ -293,11 +293,53 @@ override-attr PopplerRectangle.y2
 static int
 _wrap_poppler_rectangle__set_y2(PyGBoxed *self, PyObject *value, void *closure)
 {
-    gint val;
+    double val;
+
+    val = PyFloat_AsDouble(value);
+    if (PyErr_Occurred())
+        return -1;
+    pyg_boxed_get(self, PopplerRectangle)->y2 = val;
+    return 0;
+}
+%%
+override-attr PopplerColor.red
+static int
+_wrap_poppler_color__set_red(PyGBoxed *self, PyObject *value, void *closure)
+{
+    guint16 val;
 
     val = PyInt_AsLong(value);
     if (PyErr_Occurred())
         return -1;
-    pyg_boxed_get(self, PopplerRectangle)->y2 = val;
+
+    pyg_boxed_get(self, PopplerColor)->red = val;
+    return 0;
+}
+%%
+override-attr PopplerColor.green
+static int
+_wrap_poppler_color__set_green(PyGBoxed *self, PyObject *value, void *closure)
+{
+    guint16 val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+
+    pyg_boxed_get(self, PopplerColor)->green = val;
+    return 0;
+}
+%%
+override-attr PopplerColor.blue
+static int
+_wrap_poppler_color__set_blue(PyGBoxed *self, PyObject *value, void *closure)
+{
+    guint16 val;
+
+    val = PyInt_AsLong(value);
+    if (PyErr_Occurred())
+        return -1;
+
+    pyg_boxed_get(self, PopplerColor)->blue = val;
     return 0;
 }
