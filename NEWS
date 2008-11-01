@@ -1,4 +1,11 @@
-PyPoppler 0.8.0     (Jun 10 2008)
+PyPoppler 0.10.0     (Nov 01 2008)
+==================================
+
+    o Make poppler.Rectangle fields writable. (Gian Mario)
+    o Make poppler.Color fields writable, patch by Gennady Telegin (Gian)
+    o Update with the latest poppler 0.10.0 API. (Gian)
+
+PyPoppler 0.8.1     (Jun 10 2008)
 =================================
 
     o Fix a compilation failure against poppler 0.8.3
