@@ -321,21 +321,6 @@
   )
 )
 
-(define-enum AnnotTextIcon
-  (in-module "Poppler")
-  (c-name "PopplerAnnotTextIcon")
-  (gtype-id "POPPLER_TYPE_ANNOT_TEXT_ICON")
-  (values
-    '("comment" "POPPLER_ANNOT_TEXT_ICON_COMMENT")
-    '("key" "POPPLER_ANNOT_TEXT_ICON_KEY")
-    '("note" "POPPLER_ANNOT_TEXT_ICON_NOTE")
-    '("help" "POPPLER_ANNOT_TEXT_ICON_HELP")
-    '("new-paragraph" "POPPLER_ANNOT_TEXT_ICON_NEW_PARAGRAPH")
-    '("paragraph" "POPPLER_ANNOT_TEXT_ICON_PARAGRAPH")
-    '("insert" "POPPLER_ANNOT_TEXT_ICON_INSERT")
-  )
-)
-
 (define-enum AnnotTextState
   (in-module "Poppler")
   (c-name "PopplerAnnotTextState")
@@ -576,6 +561,7 @@
 )
 
 
+
 ;; From poppler-action.h
 
 (define-function poppler_action_get_type
@@ -718,7 +704,7 @@
 (define-method get_icon
   (of-object "PopplerAnnotText")
   (c-name "poppler_annot_text_get_icon")
-  (return-type "PopplerAnnotTextIcon")
+  (return-type "gchar*")
 )
 
 (define-method get_state
@@ -749,7 +735,7 @@
   (return-type "GType")
 )
 
-(define-function annot_callout_line_new
+(define-function poppler_annot_callout_line_new
   (c-name "poppler_annot_callout_line_new")
   (is-constructor-of "PopplerAnnotCalloutLine")
   (return-type "PopplerAnnotCalloutLine*")
@@ -1412,7 +1398,7 @@
 
 ;; From poppler.h
 
-(define-function poppler_error_quark
+(define-function error_quark
   (c-name "poppler_error_quark")
   (return-type "GQuark")
 )

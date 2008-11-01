@@ -1,3 +1,7 @@
+2008-11-01 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* poppler.defs: Update with the latest poppler 0.10.0 API.
+
 2008-06-14 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* poppler.override: poppler.Rectangle fields are double not gint, fixed.
