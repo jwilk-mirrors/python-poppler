@@ -1,3 +1,14 @@
+2009-01-07 Gian Mario Tagliaretti  <gianmt@gnome.org>
+
+	* pypoppler-private.h:
+	* configure.ac:
+	* Makefile.am:
+	check for Pycairo hex version to use in override
+
+	* poppler.override: wrap (poppler_page_get_thumbnail) and
+	poppler_page_get_image	
+
+=== 0.10.0 ===
 2008-11-01 Gian Mario Tagliaretti  <gianmt@gnome.org>
 
 	* configure.ac: version bump 0.10.0

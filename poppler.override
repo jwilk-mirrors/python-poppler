@@ -24,6 +24,7 @@ headers
 #include <pygtk/pygtk.h>
 #include <pycairo.h>
 #include <gdk/gdkregion.h>
+#include "pypoppler-private.h"
 
 extern Pycairo_CAPI_t *Pycairo_CAPI;
 
@@ -342,4 +343,46 @@ _wrap_poppler_color__set_blue(PyGBoxed *self, PyObject *value, void *closure)
 
     pyg_boxed_get(self, PopplerColor)->blue = val;
     return 0;
+}
+%%
+override poppler_page_get_thumbnail noargs
+static PyObject *
+_wrap_poppler_page_get_thumbnail(PyGObject *self,
+                                 PyObject *args,
+                                 PyObject *kwargs)
+{
+    cairo_surface_t * surface;
+
+    surface = poppler_page_get_thumbnail(POPPLER_PAGE(self->obj));
+
+#if PYCAIRO_VERSION_HEX >= 0x1010600
+    return PycairoSurface_FromSurface(surface, NULL);
+#else
+    return PycairoSurface_FromSurface(surface, NULL, NULL);
+#endif
+}
+%%
+override poppler_page_get_image kwargs
+static PyObject *
+_wrap_poppler_page_get_image(PyGObject *self,
+                             PyObject *args,
+                             PyObject *kwargs)
+{
+    static char     *kwlist[] = { "image_id", NULL };
+    gint            image_id;
+    cairo_surface_t *surface;
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs,
+                                     "i:Page.get_image", kwlist,
+                                     &image_id)) {
+        return NULL;
+    }
+
+    surface = poppler_page_get_image(POPPLER_PAGE(self->obj), image_id);
+
+#if PYCAIRO_VERSION_HEX >= 0x1010600
+    return PycairoSurface_FromSurface(surface, NULL);
+#else
+    return PycairoSurface_FromSurface(surface, NULL, NULL);
+#endif
 }

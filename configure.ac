@@ -67,9 +67,20 @@ dnl pygtk
 PKG_CHECK_MODULES(PYPOPPLER, [ dnl
                          pygtk-2.0 >= pygtk_required_version,
                          atk >= atk_required_version,
-                         poppler-glib >= poppler_glib_required_version,
-                         pycairo >= pycairo_required_version
+                         poppler-glib >= poppler_glib_required_version
                          ])
+PKG_CHECK_MODULES(PYCAIRO, [pycairo >= pycairo_required_version],
+			    have_pycairo=true, have_pycairo=false)
+
+if test "x$have_pycairo" = "xtrue"; then
+  AC_DEFINE_UNQUOTED(PYCAIRO_MAJOR_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 1`], dnl
+                     [pycairo major version])
+  AC_DEFINE_UNQUOTED(PYCAIRO_MINOR_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 2`], dnl
+                     [pycairo minor version])
+  AC_DEFINE_UNQUOTED(PYCAIRO_MICRO_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 3`], dnl
+                     [pycairo micro version])
+fi
+
 if test -n "$export_dynamic"; then
 	PYPOPPLER_LIBS=`echo $PYPOPPLER_LIBS | sed -e "s/$export_dynamic//"`
 fi

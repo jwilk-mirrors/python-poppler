@@ -10,7 +10,7 @@ EXTRA_DIST = poppler.defs poppler.override
 # poppler module
 pyexec_LTLIBRARIES = poppler.la
 poppler_la_LDFLAGS = -module -avoid-version -export-symbols-regex initpoppler
-poppler_la_CFLAGS = $(PYPOPPLER_CFLAGS)
+poppler_la_CFLAGS = $(PYPOPPLER_CFLAGS) $(PYCAIRO_CFLAGS) 
 poppler_la_LIBADD = $(PYPOPPLER_LIBS)
 poppler_la_SOURCES = popplermodule.c 
 nodist_poppler_la_SOURCES = poppler.c
