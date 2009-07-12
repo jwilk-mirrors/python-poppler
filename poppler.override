@@ -25,6 +25,183 @@ headers
 #include <pycairo.h>
 #include <gdk/gdkregion.h>
 #include "pypoppler-private.h"
+#ifndef POPPLER_TYPE_ACTION_ANY
+#define POPPLER_TYPE_ACTION_ANY (_poppler_action_any_get_type ())
+
+static GType _poppler_action_any_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionAny",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_GOTO_DEST
+#define POPPLER_TYPE_ACTION_GOTO_DEST (_poppler_action_goto_dest_get_type ())
+
+static GType _poppler_action_goto_dest_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionGotoDest",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_GOTO_DEST
+#define POPPLER_TYPE_ACTION_GOTO_DEST (_poppler_action_goto_dest_get_type ())
+
+static GType _poppler_action_goto_dest_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionGotoDest",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_GOTO_REMOTE
+#define POPPLER_TYPE_ACTION_GOTO_REMOTE (_poppler_action_goto_remote_get_type ())
+
+static GType _poppler_action_goto_remote_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionGotoRemote",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_LAUNCH
+#define POPPLER_TYPE_ACTION_LAUNCH (_poppler_action_launch_get_type ())
+
+static GType _poppler_action_launch_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionLaunch",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_URI
+#define POPPLER_TYPE_ACTION_URI (_poppler_action_uri_get_type ())
+
+static GType _poppler_action_uri_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionUri",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_NAMED
+#define POPPLER_TYPE_ACTION_NAMED (_poppler_action_named_get_type ())
+
+static GType _poppler_action_named_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionNamed",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+#ifndef POPPLER_TYPE_ACTION_MOVIE
+#define POPPLER_TYPE_ACTION_MOVIE (_poppler_action_movie_get_type ())
+
+static GType _poppler_action_movie_get_type (void)
+{
+    static GType our_type = 0;
+    
+    if (our_type == 0)
+    {
+        our_type = g_boxed_type_register_static ("PopplerActionMovie",
+                                                  (GBoxedCopyFunc)poppler_action_copy,
+                                                  (GBoxedFreeFunc)poppler_action_free);
+    }
+    return our_type;
+}
+#endif
+
+static PyObject *
+_poppler_action_to_poppler_action_typed (PopplerAction * action)
+{
+    if (!action)/*TODO: Should we raise an exception in this case?*/
+    {
+        Py_INCREF(Py_None);
+        return Py_None;
+    }
+    
+    GType boxed_type;
+    
+    switch (action->type)
+    {
+        case POPPLER_ACTION_NONE:/*TODO: Is this the right behaviour?*/
+            Py_INCREF(Py_None);
+            return Py_None;
+        case POPPLER_ACTION_GOTO_DEST:
+            boxed_type = POPPLER_TYPE_ACTION_GOTO_DEST;
+            break;
+        case POPPLER_ACTION_GOTO_REMOTE:
+            boxed_type = POPPLER_TYPE_ACTION_GOTO_REMOTE;
+            break;
+        case POPPLER_ACTION_LAUNCH:
+            boxed_type = POPPLER_TYPE_ACTION_LAUNCH;
+            break;
+        case POPPLER_ACTION_URI:
+            boxed_type = POPPLER_TYPE_ACTION_URI;
+            break;
+        case POPPLER_ACTION_NAMED:
+            boxed_type = POPPLER_TYPE_ACTION_NAMED;
+            break;
+        case POPPLER_ACTION_MOVIE:
+            boxed_type = POPPLER_TYPE_ACTION_MOVIE;
+            break;
+        default:
+            boxed_type = POPPLER_TYPE_ACTION_ANY;
+    }
+    
+    return pyg_boxed_new (boxed_type, action, TRUE, TRUE);
+}
+
 
 extern Pycairo_CAPI_t *Pycairo_CAPI;
 
@@ -343,6 +520,43 @@ _wrap_poppler_color__set_blue(PyGBoxed *self, PyObject *value, void *closure)
 
     pyg_boxed_get(self, PopplerColor)->blue = val;
     return 0;
+}
+%%
+override poppler_action_get_typed_action noargs
+static PyObject *
+_wrap_poppler_action_get_typed_action(PyGBoxed *self)
+{
+    return _poppler_action_to_poppler_action_typed(pyg_boxed_get(self, PopplerAction));
+}
+%%
+override-attr PopplerLinkMapping.action
+static PyObject *
+_wrap_poppler_link_mapping__get_action(PyGBoxed * self, void *closure)
+{
+    PopplerLinkMapping * lm = pyg_boxed_get(self, PopplerLinkMapping);
+    
+    if (lm)
+    {
+        return _poppler_action_to_poppler_action_typed(lm->action);
+    }
+    
+    Py_INCREF(Py_None);/*TODO: Should we raise an exception in this case?*/
+    return Py_None;
+}
+%%
+override poppler_index_iter_get_action noargs
+static PyObject *
+_wrap_poppler_index_iter_get_action(PyGBoxed *self)
+{
+    PopplerIndexIter * it = pyg_boxed_get(self, PopplerIndexIter);
+    
+    if (it)
+    {
+        return _poppler_action_to_poppler_action_typed(poppler_index_iter_get_action(it));
+    }
+    
+    Py_INCREF(Py_None);/*TODO: Should we raise an exception in this case?*/
+    return Py_None;
 }
 %%
 override poppler_page_get_thumbnail noargs
