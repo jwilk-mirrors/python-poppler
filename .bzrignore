@@ -21,4 +21,6 @@ missing
 py-compile
 stamp-h1
 poppler.c
+config.lt
+ltmain.sh
 
