@@ -140,6 +140,10 @@
   (gtype-id "POPPLER_TYPE_ANNOT_MAPPING")
   (copy-func "poppler_annot_mapping_copy")
   (release-func "poppler_annot_mapping_free")
+  (fields
+    '("PopplerRectangle" "area")
+    '("PopplerAnnot*" "annot")
+  )
 )
 
 (define-object Annot
