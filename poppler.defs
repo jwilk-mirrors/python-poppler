@@ -50,7 +50,7 @@
   (release-func "poppler_link_mapping_free")
   (fields
     '("PopplerRectangle" "area")
-    '("PopplerAction*" "action")
+    '("PyObject*" "action")
   )
 )
 
@@ -87,6 +87,79 @@
   (gtype-id "POPPLER_TYPE_ACTION")
   (copy-func "poppler_action_copy")
   (release-func "poppler_action_free")
+  (fields
+    '("PopplerActionType" "type")
+  )
+)
+
+(define-boxed ActionAny
+  (in-module "Poppler")
+  (c-name "PopplerActionAny")
+  (gtype-id "POPPLER_TYPE_ACTION_ANY")
+  (fields
+    '("gchar*" "title")
+  )
+)
+
+(define-boxed ActionGotoDest
+  (in-module "Poppler")
+  (c-name "PopplerActionGotoDest")
+  (gtype-id "POPPLER_TYPE_ACTION_GOTO_DEST")
+  (fields
+    '("gchar*" "title")
+    '("PopplerDest*" "dest")
+  )
+)
+
+(define-boxed ActionGotoRemote
+  (in-module "Poppler")
+  (c-name "PopplerActionGotoRemote")
+  (gtype-id "POPPLER_TYPE_ACTION_GOTO_REMOTE")
+  (fields
+    '("gchar*" "title")
+    '("gchar*" "file_name")
+    '("PopplerDest*" "dest")
+  )
+)
+
+(define-boxed ActionLaunch
+  (in-module "Poppler")
+  (c-name "PopplerActionLaunch")
+  (gtype-id "POPPLER_TYPE_ACTION_LAUNCH")
+  (fields
+    '("gchar*" "title")
+    '("gchar*" "file_name")
+    '("gchar*" "params")
+  )
+)
+
+(define-boxed ActionUri
+  (in-module "Poppler")
+  (c-name "PopplerActionUri")
+  (gtype-id "POPPLER_TYPE_ACTION_URI")
+  (fields
+    '("gchar*" "title")
+    '("gchar*" "uri")
+  )
+)
+
+(define-boxed ActionNamed
+  (in-module "Poppler")
+  (c-name "PopplerActionNamed")
+  (gtype-id "POPPLER_TYPE_ACTION_NAMED")
+  (fields
+    '("gchar*" "title")
+    '("gchar*" "named_dest")
+  )
+)
+
+(define-boxed ActionMovie
+  (in-module "Poppler")
+  (c-name "PopplerActionMovie")
+  (gtype-id "POPPLER_TYPE_ACTION_MOVIE")
+  (fields
+    '("gchar*" "title")
+  )
 )
 
 (define-boxed Dest
@@ -1831,6 +1904,13 @@
 )
 
 (define-method free
+
+(define-method to_typed_action
+  (of-object "PopplerAction")
+  (c-name "poppler_action_get_typed_action")
+  (return-type "PyObject *")
+)
+
   (of-object "PopplerAnnotMapping")
   (c-name "poppler_annot_mapping_free")
   (return-type "none")
