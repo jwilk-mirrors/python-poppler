@@ -11,7 +11,7 @@ m4_define(pygobject_required_version, 2.10.1)
 m4_define(pygtk_required_version, 2.10.0)
 m4_define(poppler_glib_required_version, 0.10)
 m4_define(atk_required_version, 1.6.0)
-m4_define(pycairo_required_version,    1.2.0)
+m4_define(pycairo_required_version,    1.8.4)
 
 AC_INIT(pypoppler, pypoppler_version, [http://launchpad.net/poppler-python/])
 AC_DEFINE(PYPOPPLER_MAJOR_VERSION, pypoppler_major_version, [pypoppler major version])
