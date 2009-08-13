@@ -1,3 +1,12 @@
+PyPoppler 0.10.1     (Aug 13 2009)
+==================================
+
+    o Support for accessing Action fields (Daniel Jacobs)
+    o Bug #397850 AnnotMapping/Annot implementation incomplete (Gian)
+    o Update configure.ac to work with libtool 2.x
+    o Update aclocal.m4 (Gian)
+    o Ignore some more files automatically created by libtool (Gian)
+
 PyPoppler 0.10.0     (Nov 01 2008)
 ==================================
 
