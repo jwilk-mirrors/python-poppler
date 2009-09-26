@@ -254,6 +254,13 @@
   (gtype-id "POPPLER_TYPE_DOCUMENT")
 )
 
+(define-object Layer
+  (in-module "Poppler")
+  (parent "GObject")
+  (c-name "PopplerLayer")
+  (gtype-id "POPPLER_TYPE_LAYER")
+)
+
 (define-object Page
   (in-module "Poppler")
   (parent "GObject")
