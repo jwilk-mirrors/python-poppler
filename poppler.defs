@@ -696,6 +696,15 @@
   (return-type "gchar*")
 )
 
+(define-method set_contents
+  (of-object "PopplerAnnot")
+  (c-name "poppler_annot_set_contents")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "contents")
+  )
+)
+
 (define-method get_name
   (of-object "PopplerAnnot")
   (c-name "poppler_annot_get_name")
@@ -731,10 +740,25 @@
   (return-type "gchar*")
 )
 
+(define-method has_popup
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_has_popup")
+  (return-type "gboolean")
+)
+
 (define-method get_popup_is_open
   (of-object "PopplerAnnotMarkup")
   (c-name "poppler_annot_markup_get_popup_is_open")
   (return-type "gboolean")
+)
+
+(define-method get_popup_rectangle
+  (of-object "PopplerAnnotMarkup")
+  (c-name "poppler_annot_markup_get_popup_rectangle")
+  (return-type "gboolean")
+  (parameters
+    '("PopplerRectangle*" "poppler_rect")
+  )
 )
 
 (define-method get_opacity
@@ -857,6 +881,19 @@
     '("PopplerAttachmentSaveFunc" "save_func")
     '("gpointer" "user_data")
     '("GError**" "error")
+  )
+)
+
+
+
+;; From poppler-date.h
+
+(define-function date_parse
+  (c-name "poppler_date_parse")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "date")
+    '("time_t*" "timet")
   )
 )
 
@@ -1100,6 +1137,56 @@
 (define-method next
   (of-object "PopplerFontsIter")
   (c-name "poppler_fonts_iter_next")
+  (return-type "gboolean")
+)
+
+(define-function poppler_layers_iter_get_type
+  (c-name "poppler_layers_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function poppler_layers_iter_new
+  (c-name "poppler_layers_iter_new")
+  (is-constructor-of "PopplerLayersIter")
+  (return-type "PopplerLayersIter*")
+  (parameters
+    '("PopplerDocument*" "document")
+  )
+)
+
+(define-method copy
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_copy")
+  (return-type "PopplerLayersIter*")
+)
+
+(define-method free
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_free")
+  (return-type "none")
+)
+
+(define-method get_child
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_get_child")
+  (return-type "PopplerLayersIter*")
+)
+
+(define-method get_title
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_get_title")
+  (return-type "gchar*")
+)
+
+(define-method get_layer
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_get_layer")
+  (return-type "PopplerLayer*")
+)
+
+(define-method next
+  (of-object "PopplerLayersIter")
+  (c-name "poppler_layers_iter_next")
   (return-type "gboolean")
 )
 
@@ -1488,6 +1575,51 @@
 (define-function get_version
   (c-name "poppler_get_version")
   (return-type "const-char*")
+)
+
+
+
+;; From poppler-layer.h
+
+(define-function poppler_layer_get_type
+  (c-name "poppler_layer_get_type")
+  (return-type "GType")
+)
+
+(define-method get_title
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_get_title")
+  (return-type "const-gchar*")
+)
+
+(define-method is_visible
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_is_visible")
+  (return-type "gboolean")
+)
+
+(define-method show
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_show")
+  (return-type "none")
+)
+
+(define-method hide
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_hide")
+  (return-type "none")
+)
+
+(define-method is_parent
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_is_parent")
+  (return-type "gboolean")
+)
+
+(define-method get_radio_button_group_id
+  (of-object "PopplerLayer")
+  (c-name "poppler_layer_get_radio_button_group_id")
+  (return-type "gint")
 )
 
 
@@ -1904,6 +2036,10 @@
 )
 
 (define-method free
+  (of-object "PopplerAnnotMapping")
+  (c-name "poppler_annot_mapping_free")
+  (return-type "none")
+)
 
 (define-method to_typed_action
   (of-object "PopplerAction")
@@ -1911,7 +2047,3 @@
   (return-type "PyObject *")
 )
 
-  (of-object "PopplerAnnotMapping")
-  (c-name "poppler_annot_mapping_free")
-  (return-type "none")
-)
