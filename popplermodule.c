@@ -22,8 +22,12 @@
 
 /* include this first, before NO_IMPORT_PYGOBJECT is defined */
 
+#define NO_IMPORT_PYGOBJECT
 #include <pygobject.h>
+
+#define NO_IMPORT_PYGTK
 #include <pygtk/pygtk.h>
+
 #include <glib/poppler.h>
 
 #include <pycairo.h>
